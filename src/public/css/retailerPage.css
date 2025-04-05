@@ -1,0 +1,70 @@
+#universityName,
+#main_retailer,
+#partner,
+#post{
+  color:var(--bs-gray-900);
+  background-color: white;
+  border-color: white;
+}
+
+.btn:hover {
+ font-weight: bold; /* hover 시 폰트 굵기 변경 */
+}
+
+
+.category{
+ border: 1px solid;
+ border-color: #dee2e6;
+}
+
+#category-bar{
+ line-height: 60px;
+ color: rgba(0,0,0,0.1);
+}
+
+
+/* 업소 종류 */
+#storeKind{
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.storeKindli{
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* 지도 */
+#map{
+    width: 700px;
+    height: 600px;
+    border-radius: 5px;
+} 
+
+#mapStoreInfo{
+    margin-top: 50px;
+    font-size: 20px;
+}
+
+/* 가게 정보 출력 */
+#mapStoreInfo{
+    font-size: 17px;
+}
+
+.storeInfoTextBox{
+    display: none;
+    margin-bottom: 20px;
+}
+
+.storeInfoText{
+    color: #979797;
+}
+
+.storeInfoTextInput{
+    margin-left: 10px;
+}
+
+#storeName{
+    font-size: 23px;
+    font-weight: bold;
+}

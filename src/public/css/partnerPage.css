@@ -1,0 +1,114 @@
+#universityName,
+#main_retailer,
+#partner,
+#post{
+  color:var(--bs-gray-900);
+  background-color: white;
+  border-color: white;
+}
+
+.btn:hover {
+ font-weight: bold; /* hover 시 폰트 굵기 변경 */
+}
+
+
+.category{
+ border: 1px solid;
+ border-color: #dee2e6;
+}
+
+#category-bar{
+ line-height: 60px;
+ color: rgba(0,0,0,0.1);
+}
+
+/* 검색창 */
+#serchBox{
+    width: 700px;
+    height: 50px;
+    margin: 0 auto 0;
+    display: inline;
+}
+
+#partnerMapSerch{
+    width: 600px;
+    height: 40px;
+    display: inline-block;
+    margin: 0 auto;
+    border: 1px solid #FFD400;
+    border-radius: 5px;
+    outline: none;
+    
+}
+
+#serchBtn{
+    width: 60px;
+    height: 40px;
+    margin-left: 5px;
+    background-color: #FFD400;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+}
+
+
+/* 지도 */
+#mapBox{
+    width: 1300px;
+    /* height: 950px; */
+    margin: 0 auto;
+    padding-top: 50px;
+}
+
+
+#map{
+    width: 700px;
+    height: 600px;
+    margin-left: 40px;
+    border-radius: 5px;
+} 
+
+#storeList{
+    font-size: 15px;
+}
+
+#mapStoreInfo{
+    margin-top: 40px;
+    margin-left: 80px;
+    font-size: 20px;
+}
+
+.storeInfoTextBox{
+    display: none;
+    margin-bottom: 20px;
+}
+
+.storeInfoText{
+    color: #979797;
+}
+
+.storeInfoTextInput{
+    margin-left: 10px;
+}
+
+#storeName{
+    font-size: 23px;
+    font-weight: bold;
+}
+
+#storeList{
+    cursor: pointer;
+    list-style: none;
+    padding-left: 40px;
+}
+
+#storeListTitle{
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+#storeList li{
+    font-size: 17px;
+    margin-bottom: 10px;
+}
