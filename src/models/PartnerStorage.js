@@ -101,14 +101,14 @@ class PartnerStorage{
         })
     }
     // 제휴가게 등록하기
-    static async uploadPartnerStore(storeName, store_location, latitude, longitude, university_id, content, startDate, endDate){
+    static async uploadPartnerStore(partner_name, content, start_period, end_period, address, university_id, latitude, longitude){
         return new Promise(async(resolve,reject)=>{
             pool.getConnection((err,connection)=>{
                 if(err){
                     console.error('MySQL 연결 오류: ',err);
                     reject(err);
                 }
-                pool.query("INSERT into Partner (storeName, store_location, latitude, longitude, university_id, content, startDate, endDate) values (?,?,?,?,?,?,?,?);",[storeName, store_location, latitude, longitude, university_id, content, startDate, endDate],function(err,rows){
+                pool.query("INSERT into Partner (partner_name, content, start_period, end_period, address, university_id, latitude, longitude) values (?,?,?,?,?,?,?,?);",[partner_name, content, start_period, end_period, address, university_id, latitude, longitude],function(err,rows){
                     connection.release();
                     if(err){
                         console.error('Query 오류',err);
@@ -120,14 +120,14 @@ class PartnerStorage{
         })    
     }
     // 제휴가게 삭제하기
-    static async DeletePartnerStore(storeID){
+    static async DeletePartnerStore(partner_id){
         return new Promise(async(resolve,reject)=>{
             pool.getConnection((err,connection)=>{
                 if(err){
                     console.error('MySQL 연결 오류: ',err);
                     reject(err);
                 }
-                pool.query("DELETE FROM Partner WHERE storeID=?;",[storeID],function(err,rows){
+                pool.query("DELETE FROM Partner WHERE partner_id=?;",[partner_id],function(err,rows){
                     connection.release()
                     if(err){
                         console.error('Query 오류',err);
