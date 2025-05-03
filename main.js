@@ -34,7 +34,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 import apiKeys from './src/public/js/apiKey.js';
 
 const kakaoScript = document.createElement('script');
-kakaoScript.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${apiKeys.KAKAO}&autoload=true`;
+kakaoScript.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${apiKeys.KAKAO_API_KEY}&autoload=true`;
 kakaoScript.async = true;
 document.head.appendChild(kakaoScript);
 
