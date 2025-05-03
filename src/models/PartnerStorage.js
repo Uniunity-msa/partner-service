@@ -1,7 +1,6 @@
 "use strict";
 
 const { resolve } = require("path");
-const { pool } = require("../../config/db");
 
 class PartnerStorage{
     // unversity_url 입력받아 university_id 보내기
