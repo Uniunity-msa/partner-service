@@ -32,7 +32,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-app.use("/", require("./src/controllers/index.js")); //use -> 미들 웨어를 등록해주는 메서드
+app.use("/", require("./src/controllers/index.jsd")); //use -> 미들 웨어를 등록해주는 메서드
 
 //에러처리를 위한 미들웨어 생성
 
