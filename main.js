@@ -31,13 +31,6 @@ app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-import apiKeys from './src/public/js/apiKey.js';
-
-const kakaoScript = document.createElement('script');
-kakaoScript.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${apiKeys.KAKAO_API_KEY}&autoload=true`;
-kakaoScript.async = true;
-document.head.appendChild(kakaoScript);
-
 
 app.use("/", require("./src/controllers/index")); //use -> 미들 웨어를 등록해주는 메서드
 
