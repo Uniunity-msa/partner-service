@@ -110,4 +110,4 @@ dist
 .credentials.json
 .token.json
 
-.src/public/js/apiKey.js
+/src/public/js/apiKey.js
