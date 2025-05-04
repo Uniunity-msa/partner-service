@@ -1,3 +1,5 @@
+import loadKakaoMap from '../js/kakaomapLoader.js';
+
 //로그인(로그아웃), 회원가입(마이페이지)버튼
 const loginStatusBtn = document.getElementById("loginStatusBtn");
 const signUpBtn = document.getElementById("signUpBtn");
@@ -10,46 +12,40 @@ const university_name = document.getElementById("university_name");
 const navBar = document.getElementById("navbar");
 
 
-//회원로그인 정보 불러오기
-const loadloginData = () => {
-  const url = `${apiUrl}/loginStatus`;
-  fetch(url)
-    .then((res) => res.json())
-    .then(res => {
-      userInfo = res;
-      setLoginHeader(res);
-    }
-    )
-}
-const setLoginHeader = (res) => {
-  navBar.setAttribute("href", `${apiUrl}`);
-  if (res.loginStatus) {
-    loginStatusBtn.setAttribute("href", `${apiUrl}/logout`);
-    loginStatusBtn.innerText = "로그아웃"
-    signUpBtn.setAttribute("href", `${apiUrl}/mypage`);
-    signUpBtn.innerText = "마이페이지"
-  }
-  else {
-    loginStatusBtn.setAttribute("href", `${apiUrl}/login`);
-    loginStatusBtn.innerText = "로그인"
-    signUpBtn.setAttribute("href", `${apiUrl}/signup/agreement`);
-    signUpBtn.innerText = "회원가입"
-  }
+//회원로그인 정보 불러오기 -> 추후 ms 통신 형태로 구현
 
-}
+// const setLoginHeader = (res) => {
+//   navBar.setAttribute("href", `${apiUrl}`);
+//   if (res.loginStatus) {
+//     loginStatusBtn.setAttribute("href", `${apiUrl}/logout`);
+//     loginStatusBtn.innerText = "로그아웃"
+//     signUpBtn.setAttribute("href", `${apiUrl}/mypage`);
+//     signUpBtn.innerText = "마이페이지"
+//   }
+//   else {
+//     loginStatusBtn.setAttribute("href", `${apiUrl}/login`);
+//     loginStatusBtn.innerText = "로그인"
+//     signUpBtn.setAttribute("href", `${apiUrl}/signup/agreement`);
+//     signUpBtn.innerText = "회원가입"
+//   }
+
+// }
 // 기본 좌표 저징 지도 코드
 // ===========================================================================================
-document.addEventListener("DOMContentLoaded", function () {
-  const container = document.getElementById("map");
-  const options = {
-    center: new kakao.maps.LatLng(37.59169598260442, 127.02220971655647),
-    level: 3
-  };
-  const map = new kakao.maps.Map(container, options);
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    await loadKakaoMap(); // kakao SDK 로드 및 초기화
+    const container = document.getElementById('map');
+    const options = {
+      center: new kakao.maps.LatLng(37.59169598260442, 127.02220971655647), // 서울 중심
+      level: 3
+    };
+    const map = new kakao.maps.Map(container, options);
+  } catch (error) {
+    console.error("Kakao 지도 로딩 실패:", error);
+  }
 });
 // ===========================================================================================
-// 검색창 버전 => university_url을 모두 university_name으로 변경해야 함
-
 
 // university_url 값을 받아오는 함수
 function getUniversityUrl() {

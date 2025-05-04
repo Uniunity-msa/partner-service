@@ -1,3 +1,5 @@
+import loadKakaoMap from '../js/kakaomapLoader.js';
+
 var stores = [];
 var positions = [];
 var Uniname = [];
@@ -11,13 +13,18 @@ const universityName = document.getElementById("universityName");
 
 // 고정 지도 코드
 // ===========================================================================================
-document.addEventListener("DOMContentLoaded", function () {
-    const container = document.getElementById("map");
-    const options = {
-      center: new kakao.maps.LatLng(37.59169598260442, 127.02220971655647),
-      level: 3
-    };
-    const map = new kakao.maps.Map(container, options);
+document.addEventListener("DOMContentLoaded", async () => {
+    try {
+      await loadKakaoMap(); // kakao SDK 로드 및 초기화
+      const container = document.getElementById('map');
+      const options = {
+        center: new kakao.maps.LatLng(37.59169598260442, 127.02220971655647), // 서울 중심
+        level: 3
+      };
+      const map = new kakao.maps.Map(container, options);
+    } catch (error) {
+      console.error("Kakao 지도 로딩 실패:", error);
+    }
   });
 // ===========================================================================================
 
