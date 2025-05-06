@@ -8,7 +8,8 @@ const ctrl = require("./home.ctrl");
 
 
 // partner 라우터
-router.get("/partner/:university_url",ctrl.output.partner);
+// router.get("/partner/:university_url",ctrl.output.partner);
+router.get("/partner",ctrl.output.partner);
 router.get("/getUniversityID/:university_url",ctrl.partner.getUniversityID);
 router.post("/getPartner",ctrl.partner.getPartner);
 router.post("/getPartnerUni",ctrl.partner.getPartnerUni);
