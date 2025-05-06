@@ -8,7 +8,7 @@ const path = require('path');
 const app = express();
 
 //에러 라우팅
-const errorController = require("./src/controllers/errorController");
+const errorController = require("./src/controllers/errorController.js");
 require('dotenv').config();
 
 const bcrypt = require('bcrypt');
@@ -29,7 +29,7 @@ app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use("/", require("./src/controllers/index")); //use -> 미들 웨어를 등록해주는 메서드
+app.use("/", require("./src/controllers/index.js")); //use -> 미들 웨어를 등록해주는 메서드
 
 //에러처리를 위한 미들웨어 생성
 
