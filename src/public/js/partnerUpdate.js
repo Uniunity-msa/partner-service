@@ -1,15 +1,20 @@
 "use strict";
-
+import loadKakaoMap from '/js/kakaomapLoader.js';
 // 기본 좌표 저징 지도 코드
 // ===========================================================================================
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = {
-        center: new kakao.maps.LatLng(37.59169598260442, 127.02220971655647), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    };  
-
-// 지도를 생성합니다    
-var map = new kakao.maps.Map(mapContainer, mapOption); 
+document.addEventListener("DOMContentLoaded", async () => {
+    try {
+      await loadKakaoMap(); // kakao SDK 로드 및 초기화
+      const container = document.getElementById('map');
+      const options = {
+        center: new kakao.maps.LatLng(37.59169598260442, 127.02220971655647), // 서울 중심
+        level: 3
+      };
+      const map = new kakao.maps.Map(container, options);
+    } catch (error) {
+      console.error("Kakao 지도 로딩 실패:", error);
+    }
+  });
 // ===========================================================================================
 
 const storeUploadBtn = document.querySelector('#uploadBtn'),
@@ -63,28 +68,48 @@ function centerChange(){
 // 주소-좌표 변환 객체를 생성합니다
 var geocoder = new kakao.maps.services.Geocoder();
 
-BtnAddr.addEventListener('click',function(){
-    // 주소로 좌표를 검색합니다
-    geocoder.addressSearch(store_location.value, function(result, status) {
-
-        // 정상적으로 검색이 완료됐으면 
-        if (status === kakao.maps.services.Status.OK) {
-
-            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-            getlatitude = parseFloat(result[0].y);
-            getlongitude = parseFloat(result[0].x);
-
-            // 결과값으로 받은 위치를 마커로 표시합니다
-            var marker = new kakao.maps.Marker({
+document.addEventListener('DOMContentLoaded', () => {
+    loadKakaoMap()
+      .then(() => {
+        const container = document.getElementById('map');
+        const options = {
+          center: new kakao.maps.LatLng(37.59169598260442, 127.02220971655647), // 초기 중심 좌표
+          level: 3
+        };
+        map = new kakao.maps.Map(container, options);
+  
+        const geocoder = new kakao.maps.services.Geocoder();
+  
+        BtnAddr.addEventListener('click', function () {
+          const address = store_location.value;
+  
+          geocoder.addressSearch(address, function (result, status) {
+            if (status === kakao.maps.services.Status.OK) {
+              const lat = parseFloat(result[0].y);
+              const lng = parseFloat(result[0].x);
+              const coords = new kakao.maps.LatLng(lat, lng);
+  
+              // 기존 마커가 있으면 제거
+              if (marker) marker.setMap(null);
+  
+              // 새 마커 생성 및 지도에 표시
+              marker = new kakao.maps.Marker({
                 map: map,
                 position: coords
-            });
-
-            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-            map.setCenter(coords);
-        } 
-    });    
-})
+              });
+  
+              // 지도 중심 이동
+              map.setCenter(coords);
+            } else {
+              console.error('주소 검색 실패:', status);
+            }
+          });
+        });
+      })
+      .catch((err) => {
+        console.error('Kakao Map 로드 실패', err);
+      });
+  });
 
 
 function updateStore(){
