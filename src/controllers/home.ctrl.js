@@ -5,10 +5,10 @@ const bcrypt = require('bcrypt');
 
 const output = {
     partner: (req, res) => {
-        res.render("store/partner.html");
+        res.render("partner.html");
     },
     partnerForm: (req, res) => {
-        res.render("store/uploadTest.html");
+        res.render("uploadTest.html");
     }
 }
 
