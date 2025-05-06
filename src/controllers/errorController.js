@@ -10,7 +10,10 @@ exports.logErrors=(error,req,res,next)=>{
 exports.respondNoResourceFound=(req,res)=>{
     let errorCode =httpStatus.NOT_FOUND;
     res.status(errorCode);
-    res.sendFile(`./public/${errorCode}.html`,{
+    // res.sendFile(`./public/${errorCode}.html`,{
+    //     root:"./src"
+    // })
+    res.sendFile(`../views/${errorCode}.html`, {
         root:"./src"
     })
 };
