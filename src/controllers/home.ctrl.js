@@ -9,7 +9,10 @@ const output = {
     },
     partnerForm: (req, res) => {
         res.render("uploadTest.html");
-    }
+    },
+    retailer: async (req, res) => {
+        res.render("retailer.html");
+    },
 }
 
 
@@ -52,48 +55,48 @@ const partner = {
     },
     uploadPartnerStore: async (req, res) => {
         const partner = new Partner();
-        const storeName = req.body.storeName,
-            store_location = req.body.store_location,
+        const partner_name = req.body.partner_name,
+            address = req.body.address,
             latitude = req.body.latitude,
             longitude = req.body.longitude,
             content = req.body.content,
-            startDate = req.body.startDate,
-            endDate = req.body.endDate;
+            start_period = req.body.start_period,
+            end_period = req.body.end_period;
         const university_id = await partner.getUniversityID(req.body.university_url);
-        const response = await partner.uploadPartnerStore(storeName, store_location, latitude, longitude, university_id, content, startDate, endDate);
+        const response = await partner.uploadPartnerStore(partner_name, content, start_period, end_period, address, university_id, latitude, longitude);
         return res.json(response);
     },
     DeletePartnerStore: async (req, res) => {
         const partner = new Partner();
-        const response = await partner.DeletePartnerStore(req.params.storeID);
+        const response = await partner.DeletePartnerStore(req.params.partner_id);
         return res.json(response);
     }
 };
 
 // 소상공인 파트
-const retailer = {
-    retailer: async (req, res) => {
-        res.render("store/retailer.html");
-    },
-    retailerKind: async (req, res) => {
-        if (req.params.kind == 'all') {
-            res.render("store/retailer.html");
-        }
-        else if (req.params.kind == 'food') {
-            res.render("store/reatailerFood.html");
-        }
-        else if (req.params.kind == 'cafe') {
-            res.render("store/retailerCafe.html")
-        }
-        else {
-            res.render("store/retailer.html");
-        }
-    },
-}
+// 분류 기능 자체를 삭제함
+// const retailer = {
+//     retailer: async (req, res) => {
+//         res.render("retailer.html");
+//     },
+//     retailerKind: async (req, res) => {
+//         if (req.params.kind == 'all') {
+//             res.render("retailer.html");
+//         }
+//         else if (req.params.kind == 'food') {
+//             res.render("reatailerFood.html");
+//         }
+//         else if (req.params.kind == 'cafe') {
+//             res.render("retailerCafe.html")
+//         }
+//         else {
+//             res.render("retailer.html");
+//         }
+//     },
+// }
 
 
 module.exports = {
     output,
-    partner,
-    retailer
+    partner
 };

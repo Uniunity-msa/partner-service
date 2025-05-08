@@ -51,17 +51,17 @@ class Partner{
             return{success:false,msg:err};
         }
     }
-    async uploadPartnerStore(storeName, store_location, latitude, longitude, university_id, content, startDate, endDate){
+    async uploadPartnerStore(partner_name, content, start_period, end_period, address, university_id, latitude, longitude){
         try{
-            const response = await PartnerStorage.uploadPartnerStore(storeName, store_location, latitude, longitude, university_id, content, startDate, endDate);
+            const response = await PartnerStorage.uploadPartnerStore(partner_name, content, start_period, end_period, address, university_id, latitude, longitude);
             return response;
         }catch(err){
             return{success:false,msg:err};
         }
     }
-    async DeletePartnerStore(storeID){
+    async DeletePartnerStore(partner_id){
         try{
-            const response = await PartnerStorage.DeletePartnerStore(storeID);
+            const response = await PartnerStorage.DeletePartnerStore(partner_id);
             return response;
         }catch(err){
             return{success:false,msg:err};

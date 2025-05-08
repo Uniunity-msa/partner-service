@@ -115,13 +115,13 @@ document.addEventListener('DOMContentLoaded', () => {
 function updateStore(){
     const universityUrl = getUniversityUrl();
     const req = {
-        storeName: storeName.value,
-        store_location: store_location.value,
+        partner_name: partner_name.value,
+        address: store_location.value,
         latitude: getlatitude,
         longitude: getlongitude,
         content: content.value,
-        startDate: startDate.value,
-        endDate: endDate.value,
+        start_period: start_period.value,
+        end_period: end_period.value,
         university_url: universityUrl
     };
 
