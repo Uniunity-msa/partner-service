@@ -18,9 +18,7 @@ router.post("/uploadPartner",ctrl.partner.uploadPartnerStore);
 router.get("/partnerUpdate/:university_url",ctrl.output.partnerForm);
 router.get("/deleterStore/:partner_id",ctrl.partner.DeletePartnerStore);
 
-// retailer 라우터
-router.get("/retailer/:university_url",ctrl.retailer.retailer);
-router.get("/retailer/:university_url/:kind", ctrl.retailer.retailerKind);
+router.get("/retailer/:university_url",ctrl.output.retailer);
 
 module.exports=router;
 
