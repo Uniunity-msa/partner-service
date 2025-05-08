@@ -342,79 +342,79 @@ function retailerLoad(){
     })
 }
 
-// window.addEventListener('load',function(){
-//     getUniversityName();
-//     updateDynamicLinks();
-//     loadloginData();
-//     retailerLoad();
-// });
+window.addEventListener('load',function(){
+    getUniversityName();
+    updateDynamicLinks();
+    loadloginData();
+    retailerLoad();
+});
 
 
-// // 현재 URL의 경로 일부 가져오기 (retailer 뒤의 학교 이름 추출함)
-// function getDynamicValueFromURL() {
-//     var path = window.location.pathname;
-//     var regex = /\/retailer\/([a-zA-Z]+)/; // /partner/ 다음에 있는 영어 문자열을 추출하는 정규식
-//     var matches = path.match(regex);
-//     if (matches && matches.length > 1) {
-//       return matches[1];
-//     } else {
-//       return null;
-//     }
-//     }
+// 현재 URL의 경로 일부 가져오기 (retailer 뒤의 학교 이름 추출함)
+function getDynamicValueFromURL() {
+    var path = window.location.pathname;
+    var regex = /\/retailer\/([a-zA-Z]+)/; // /partner/ 다음에 있는 영어 문자열을 추출하는 정규식
+    var matches = path.match(regex);
+    if (matches && matches.length > 1) {
+      return matches[1];
+    } else {
+      return null;
+    }
+    }
     
-// // 새로운 url 만들기
-// function generateDynamicURL(linkId, userschool) {
-//     var dynamicValue;
+// 새로운 url 만들기
+function generateDynamicURL(linkId, userschool) {
+    var dynamicValue;
 
-//     // linkId에 따라 동적 값을 할당하는 로직을 구현합니다.
-//     if (linkId === "retailer") {
-//         dynamicValue = "retailer/" + userschool;
-//       } else if (linkId === "partner") {
-//         dynamicValue = "partner/" + userschool;
-//       } else if (linkId === "more_news") {
-//         dynamicValue = "showPostListAll/" + userschool;
-//       } else if (linkId === "news") {
-//         dynamicValue = "showPostListAll/" + userschool;
-//       } else if(linkId==="council"){
-//         dynamicValue = "council/" + userschool;
-//       }
+    // linkId에 따라 동적 값을 할당하는 로직을 구현합니다.
+    if (linkId === "retailer") {
+        dynamicValue = "retailer/" + userschool;
+      } else if (linkId === "partner") {
+        dynamicValue = "partner/" + userschool;
+      } else if (linkId === "more_news") {
+        dynamicValue = "showPostListAll/" + userschool;
+      } else if (linkId === "news") {
+        dynamicValue = "showPostListAll/" + userschool;
+      } else if(linkId==="council"){
+        dynamicValue = "council/" + userschool;
+      }
 
-//     return `${apiUrl}/` + dynamicValue;
-// }
+    return `${apiUrl}/` + dynamicValue;
+}
     
 
-// // 새로운 url로 업데이트
-// async function updateDynamicLinks() {
-//     var userschool = getDynamicValueFromURL();
-//     if (!userschool) {
-//       console.log("영어 문자열이 URL에서 추출되지 않았습니다.");
-//       return;
-//     }
-//     var link1 = document.getElementById("main_retailer");
-//     var link2 = document.getElementById("partner");
-//     var link3 = document.getElementById("news");
+// 새로운 url로 업데이트
+async function updateDynamicLinks() {
+    var userschool = getDynamicValueFromURL();
+    if (!userschool) {
+      console.log("영어 문자열이 URL에서 추출되지 않았습니다.");
+      return;
+    }
+    var link1 = document.getElementById("main_retailer");
+    var link2 = document.getElementById("partner");
+    var link3 = document.getElementById("news");
     
-//     universityName.addEventListener("click",function(){
-//         var link = generateDynamicURL("council", userschool);
-//         window.location.href = link;
-//     })
-//     link1.addEventListener("click", function () {
-//       // 버튼을 클릭하면 이동할 링크 주소를 설정하세요.
-//       var link = generateDynamicURL("retailer", userschool);
-//       window.location.href = link;
-//     });
+    universityName.addEventListener("click",function(){
+        var link = generateDynamicURL("council", userschool);
+        window.location.href = link;
+    })
+    link1.addEventListener("click", function () {
+      // 버튼을 클릭하면 이동할 링크 주소를 설정하세요.
+      var link = generateDynamicURL("retailer", userschool);
+      window.location.href = link;
+    });
   
-//     link2.addEventListener("click", function () {
-//       // 버튼을 클릭하면 이동할 링크 주소를 설정하세요.
-//       var link = generateDynamicURL("partner", userschool);
-//       window.location.href = link;
-//     });
+    link2.addEventListener("click", function () {
+      // 버튼을 클릭하면 이동할 링크 주소를 설정하세요.
+      var link = generateDynamicURL("partner", userschool);
+      window.location.href = link;
+    });
   
-//     link3.addEventListener("click", function () {
-//       // 버튼을 클릭하면 이동할 링크 주소를 설정하세요.
-//       var link = generateDynamicURL("news", userschool);
-//       window.location.href = link;
-//     });
+    link3.addEventListener("click", function () {
+      // 버튼을 클릭하면 이동할 링크 주소를 설정하세요.
+      var link = generateDynamicURL("news", userschool);
+      window.location.href = link;
+    });
   
-//   }
+  }
 
