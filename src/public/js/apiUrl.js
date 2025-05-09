@@ -1,1 +1,1 @@
-// const apiUrl = 'http://34.64.230.206:80';
+const apiUrl = 'http://34.64.117.218:3003';
