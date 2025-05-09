@@ -1,6 +1,6 @@
 "use strict"
 
-const Partner = require("../models/Partner");
+const Partner = require("/models/Partner");
 const bcrypt = require('bcrypt');
 
 const output = {
