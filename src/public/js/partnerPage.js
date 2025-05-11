@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 function getUniversityUrl() {
   const url = new URL(window.location.href);
   const universityUrl = url.pathname.split('/').pop();
+  console.log(universityUrl);
   return universityUrl;
 }
 
