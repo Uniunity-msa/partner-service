@@ -19,6 +19,8 @@ router.get("/deleterStore/:partner_id",ctrl.partner.DeletePartnerStore);
 
 router.get("/retailer/:university_url",ctrl.output.retailer);
 
+router.post("/getUniversityName", ctrl.university.getUniversityName);
+
 module.exports=router;
 
 

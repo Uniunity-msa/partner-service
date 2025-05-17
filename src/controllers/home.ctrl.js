@@ -37,7 +37,7 @@ const partner = {
     },
     getPartner: async (req, res) => {
         const partner = new Partner();
-        const response = await partner.showUniversity(req.body.university_url);
+        // const response = await partner.showUniversity(req.body.university_url);
         const university_id = await partner.getUniversityID(req.body.university_url);
         const university_location = await partner.getUniversityLocation(university_id);
         const university_uni = await partner.getPartnerStores(university_id);
@@ -73,6 +73,14 @@ const partner = {
     }
 };
 
+const university = {
+    getUniversityName: async (req, res) => {
+        const partner = new Partner();
+        const response = await partner.getUniversityName(req.body.university_url);
+        return res.json(response);
+    }
+}
+
 // 소상공인 파트
 // 분류 기능 자체를 삭제함
 // const retailer = {
@@ -98,5 +106,6 @@ const partner = {
 
 module.exports = {
     output,
-    partner
+    partner,
+    university
 };

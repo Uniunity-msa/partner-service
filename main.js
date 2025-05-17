@@ -37,7 +37,11 @@ app.use(errorController.logErrors);
 app.use(errorController.respondNoResourceFound);
 app.use(errorController.respondInternalEroor);
 
-const port = 3003;
+if(!process.env.PORT){
+    throw new Error("Please specify the port number for the HTTP server with the environment variable PORT.");
+}
+
+const port = process.env.PORT;
 app.listen(port, ()=> {
     console.log('running')
 })

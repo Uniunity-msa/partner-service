@@ -1,5 +1,6 @@
 "use strict";
 import loadKakaoMap from '/js/kakaomapLoader.js';
+import { apiUrl } from '/js/apiUrl.js';
 // 기본 좌표 저징 지도 코드
 // ===========================================================================================
 document.addEventListener("DOMContentLoaded", async () => {
