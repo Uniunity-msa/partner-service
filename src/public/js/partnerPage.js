@@ -1,4 +1,7 @@
 import loadKakaoMap from '/js/kakaomapLoader.js';
+import { apiUrl } from '/js/apiUrl.js';
+console.log(apiUrl);
+
 
 //로그인(로그아웃), 회원가입(마이페이지)버튼
 const loginStatusBtn = document.getElementById("loginStatusBtn");
@@ -13,23 +16,22 @@ const navBar = document.getElementById("navbar");
 
 
 //회원로그인 정보 불러오기 -> 추후 ms 통신 형태로 구현
+const setLoginHeader = (res) => {
+  navBar.setAttribute("href", `${apiUrl}`);
+  if (res.loginStatus) {
+    loginStatusBtn.setAttribute("href", `${apiUrl}/logout`);
+    loginStatusBtn.innerText = "로그아웃"
+    signUpBtn.setAttribute("href", `${apiUrl}/mypage`);
+    signUpBtn.innerText = "마이페이지"
+  }
+  else {
+    loginStatusBtn.setAttribute("href", `${apiUrl}/login`);
+    loginStatusBtn.innerText = "로그인"
+    signUpBtn.setAttribute("href", `${apiUrl}/signup/agreement`);
+    signUpBtn.innerText = "회원가입"
+  }
 
-// const setLoginHeader = (res) => {
-//   navBar.setAttribute("href", `${apiUrl}`);
-//   if (res.loginStatus) {
-//     loginStatusBtn.setAttribute("href", `${apiUrl}/logout`);
-//     loginStatusBtn.innerText = "로그아웃"
-//     signUpBtn.setAttribute("href", `${apiUrl}/mypage`);
-//     signUpBtn.innerText = "마이페이지"
-//   }
-//   else {
-//     loginStatusBtn.setAttribute("href", `${apiUrl}/login`);
-//     loginStatusBtn.innerText = "로그인"
-//     signUpBtn.setAttribute("href", `${apiUrl}/signup/agreement`);
-//     signUpBtn.innerText = "회원가입"
-//   }
-
-// }
+}
 // 기본 좌표 저징 지도 코드
 // ===========================================================================================
 document.addEventListener("DOMContentLoaded", async () => {
@@ -51,6 +53,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 function getUniversityUrl() {
   const url = new URL(window.location.href);
   const universityUrl = url.pathname.split('/').pop();
+  console.log(universityUrl);
   return universityUrl;
 }
 
@@ -79,6 +82,8 @@ function setCenter(map, latitude, longitude) {
 
 function getUniversityName() {
   const universityUrl = getUniversityUrl();
+  console.log('universityUrl:', universityUrl);
+  console.log('Sending to:', `${apiUrl}/getUniversityName`);
   const req = {
     university_url: universityUrl
   };
@@ -90,12 +95,14 @@ function getUniversityName() {
     body: JSON.stringify(req),
   })
     .then((res) => {
+      console.log('Response status:', res.status);
       if (!res.ok) {
         throw new Error('Network response was not ok');
       }
       return res.json();
     })
     .then(res => {
+      console.log('Response body:', res);
       Uniname.push(res.university_name);
       universityName.textContent = Uniname[0];
     })
