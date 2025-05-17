@@ -2,6 +2,7 @@ import loadKakaoMap from '/js/kakaomapLoader.js';
 import apiKeys from '/js/apiKey.js';
 import { apiUrl } from '/js/apiUrl.js';
 
+
 var stores = [];
 var positions = [];
 var Uniname = [];
@@ -14,12 +15,12 @@ const storeInfoTextBox = document.querySelectorAll(".storeInfoTextBox");
 const universityName = document.getElementById("universityName");
 
 
-// // university_url 값을 받아오는 함수
-// function getUniversityUrl() {
-//     const url = new URL(window.location.href);
-//     const universityUrl = url.pathname.split('/').pop();
-//     return universityUrl;
-// }
+// university_url 값을 받아오는 함수
+function getUniversityUrl() {
+    const url = new URL(window.location.href);
+    const universityUrl = url.pathname.split('/').pop();
+    return universityUrl;
+}
 
 function setCenter(map,latitude,longitude){            
     // 이동할 위도 경도 위치를 생성합니다 
@@ -345,9 +346,9 @@ function retailerLoad(){
 
 window.addEventListener('load',function(){
     getUniversityName();
+    retailerLoad();
     updateDynamicLinks();
     loadloginData();
-    retailerLoad();
 });
 
 

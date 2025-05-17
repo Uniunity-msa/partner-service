@@ -1,6 +1,8 @@
 import loadKakaoMap from '/js/kakaomapLoader.js';
 import { apiUrl } from '/js/apiUrl.js';
 
+// 지도 전역변수 선언
+let map;
 
 //로그인(로그아웃), 회원가입(마이페이지)버튼
 const loginStatusBtn = document.getElementById("loginStatusBtn");
@@ -41,7 +43,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       center: new kakao.maps.LatLng(37.59169598260442, 127.02220971655647), // 서울 중심
       level: 3
     };
-    const map = new kakao.maps.Map(container, options);
+    map = new kakao.maps.Map(container, options);
   } catch (error) {
     console.error("Kakao 지도 로딩 실패:", error);
   }
