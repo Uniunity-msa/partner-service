@@ -80,8 +80,6 @@ function setCenter(map, latitude, longitude) {
 
 function getUniversityName() {
   const universityUrl = getUniversityUrl();
-  console.log('universityUrl:', universityUrl);
-  console.log('Sending to:', `${apiUrl}/getUniversityName`);
   const req = {
     university_url: universityUrl
   };
@@ -93,7 +91,6 @@ function getUniversityName() {
     body: JSON.stringify(req),
   })
     .then((res) => {
-      console.log('Response status:', res.status);
       if (!res.ok) {
         throw new Error('Network response was not ok');
       }
@@ -111,6 +108,8 @@ function getUniversityName() {
 
 function partnerLoad() {
   const universityUrl = getUniversityUrl();
+  console.log('universityUrl:', universityUrl);
+  console.log('Sending to:', `${apiUrl}/getUniversityName`);
   const req = {
     university_url: universityUrl,
   };
@@ -122,6 +121,7 @@ function partnerLoad() {
     body: JSON.stringify(req),
   })
     .then((res) => {
+      console.log('Response status:', res.status);
       if (!res.ok) {
         throw new Error('Network response was not ok');
       }
@@ -150,13 +150,13 @@ function partnerLoad() {
       // 새로운 객체 생성
       for (let i = 1; i < res.length; i++) {
         const obj = {
-          storeID: res[i].storeID,
-          storeName: res[i].storeName,
-          store_location: res[i].store_location,
+          storeID: res[i].partner_id,
+          storeName: res[i].partner_name,
+          store_location: res[i].address,
           university_id: res[i].university_id,
           content: res[i].content,
-          startDate: res[i].startDate,
-          endDate: res[i].endDate
+          startDate: res[i].start_period,
+          endDate: res[i].end_period
         };
         // 제휴 종료일자가 오늘 보다 이전 날짜인 제휴 가게는 표시가 되지 않도록 함
         if (obj.endDate >= nowString) {
