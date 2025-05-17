@@ -1,6 +1,5 @@
 import loadKakaoMap from '/js/kakaomapLoader.js';
 import { apiUrl } from '/js/apiUrl.js';
-console.log(apiUrl);
 
 
 //로그인(로그아웃), 회원가입(마이페이지)버튼
@@ -53,7 +52,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 function getUniversityUrl() {
   const url = new URL(window.location.href);
   const universityUrl = url.pathname.split('/').pop();
-  console.log(universityUrl);
   return universityUrl;
 }
 
