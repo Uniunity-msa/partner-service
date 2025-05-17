@@ -2,6 +2,7 @@ import loadKakaoMap from '/js/kakaomapLoader.js';
 import { apiUrl } from '/js/apiUrl.js';
 console.log(apiUrl);
 
+
 //로그인(로그아웃), 회원가입(마이페이지)버튼
 const loginStatusBtn = document.getElementById("loginStatusBtn");
 const signUpBtn = document.getElementById("signUpBtn");
@@ -15,7 +16,6 @@ const navBar = document.getElementById("navbar");
 
 
 //회원로그인 정보 불러오기 -> 추후 ms 통신 형태로 구현
-
 const setLoginHeader = (res) => {
   navBar.setAttribute("href", `${apiUrl}`);
   if (res.loginStatus) {
@@ -82,6 +82,8 @@ function setCenter(map, latitude, longitude) {
 
 function getUniversityName() {
   const universityUrl = getUniversityUrl();
+  console.log('universityUrl:', universityUrl);
+  console.log('Sending to:', `${apiUrl}/getUniversityName`);
   const req = {
     university_url: universityUrl
   };
@@ -93,12 +95,14 @@ function getUniversityName() {
     body: JSON.stringify(req),
   })
     .then((res) => {
+      console.log('Response status:', res.status);
       if (!res.ok) {
         throw new Error('Network response was not ok');
       }
       return res.json();
     })
     .then(res => {
+      console.log('Response body:', res);
       Uniname.push(res.university_name);
       universityName.textContent = Uniname[0];
     })

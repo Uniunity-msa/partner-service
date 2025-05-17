@@ -103,6 +103,13 @@ const university = {
 //     },
 // }
 
+const university = {
+    getUniversityName: async (req, res) => {
+        const partner = new Partner();
+        const response = await partner.getUniversityName(req.body.university_url);
+        return res.json(response);
+    }
+}
 
 module.exports = {
     output,
