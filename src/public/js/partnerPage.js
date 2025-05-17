@@ -209,8 +209,8 @@ function partnerLoad() {
 
 window.addEventListener('load', function () {
   getUniversityName();
-  updateDynamicLinks();
-  loadloginData();
+  // updateDynamicLinks();
+  // loadloginData();
   partnerLoad();
 });
 
