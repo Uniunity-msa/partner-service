@@ -80,6 +80,8 @@ function setCenter(map, latitude, longitude) {
 
 function getUniversityName() {
   const universityUrl = getUniversityUrl();
+  console.log('universityUrl:', universityUrl);
+  console.log('Sending to:', `${apiUrl}/getUniversityName`);
   const req = {
     university_url: universityUrl
   };
@@ -91,13 +93,14 @@ function getUniversityName() {
     body: JSON.stringify(req),
   })
     .then((res) => {
+      console.log('getUniversityName status:', res.status);
       if (!res.ok) {
         throw new Error('Network response was not ok');
       }
       return res.json();
     })
     .then(res => {
-      console.log('Response body:', res);
+      console.log('getUniversityName body:', res);
       Uniname.push(res.university_name);
       universityName.textContent = Uniname[0];
     })
@@ -121,7 +124,7 @@ function partnerLoad() {
     body: JSON.stringify(req),
   })
     .then((res) => {
-      console.log('Response status:', res.status);
+      console.log('partnerLoad status:', res.status);
       if (!res.ok) {
         throw new Error('Network response was not ok');
       }
@@ -129,6 +132,7 @@ function partnerLoad() {
       return res.json();
     })
     .then(res => {
+      console.log('partnerLoad body:', res);
       center = []; // center 배열 초기화
       center.push(res[0]);
       setCenter(map, parseFloat(center[0].latitudeUni), parseFloat(center[0].longitudeUni));
