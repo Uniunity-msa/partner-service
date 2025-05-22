@@ -19,9 +19,10 @@ async function connectRabbitMQ() {
 // university_url을 전송
 async function sendUniversityURL(university_url) {
   if (!channel) await connectRabbitMQ();
+
   channel.sendToQueue(
   SEND_QUEUE,
-  Buffer.from(university_url),
+  Buffer.from(JSON.stringify({ university_url })),
   {
     replyTo: RECV_QUEUE, // 응답 받을 큐를 명시
   }
