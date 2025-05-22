@@ -53,13 +53,9 @@ const universityName = document.getElementById("universityName");
 
 // university_url 값을 받아오는 함수
 function getUniversityUrl() {
-    // 현재 페이지의 URL에서 경로(pathname) 부분을 추출
-    const path = window.location.pathname;
-  
-    // 경로에서 universityUrl 값을 추출
-    const pathParts = path.split('/');
-    const universityUrl = pathParts[pathParts.length - 1];
-    return universityUrl;
+  const url = new URL(window.location.href);
+  const universityUrl = url.pathname.split('/').pop();
+  return universityUrl;
 }
 
 function getUniversityName() {
@@ -83,6 +79,7 @@ function getUniversityName() {
     .then(res => {
       console.log(res);
       // Uniname.push(res);
+      console.log(res);
       universityName.textContent = res;
     })
     .catch((error) => {
@@ -117,9 +114,6 @@ function centerChange(){
     })
 }
 
-// 주소-좌표 변환 객체를 생성합니다
-var geocoder = new kakao.maps.services.Geocoder();
-
 document.addEventListener('DOMContentLoaded', () => {
     loadKakaoMap()
       .then(() => {
@@ -129,7 +123,8 @@ document.addEventListener('DOMContentLoaded', () => {
           level: 3
         };
         map = new kakao.maps.Map(container, options);
-  
+        // 지도 중심값 변경하기
+        centerChange();
         const geocoder = new kakao.maps.services.Geocoder();
   
         BtnAddr.addEventListener('click', function () {

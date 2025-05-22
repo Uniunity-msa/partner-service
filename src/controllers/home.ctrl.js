@@ -27,7 +27,7 @@ const partner = {
             // RabbitMQ로 university_location 요청 및 수신
             await sendUniversityURL(university_url, 'SendUniversityLocation');
             const university_location = await receiveUniversityData('RecvPartnerUniversityLocation');
-
+            console.log("partnerUpload university_location: ", university_location);
             return res.json(university_location);
 
         } catch (err) {
@@ -59,7 +59,6 @@ const partner = {
             for (let i = 0; i < university_uni.length; i++) {
                 obj.push(university_uni[i]);
             }
-            console.log("obj: " , obj);
             return res.json(obj);
         } catch (err) {
             console.error('getPartner error:', err);
@@ -112,8 +111,9 @@ const university = {
             const university_url = req.body.university_url;
 
             await sendUniversityURL(university_url, 'SendUniversityName');
-
             const data = await receiveUniversityData('RecvPartnerUniversityName')
+
+            console.log("partnerUpload university_name: ", data.university_name);
             return res.json(data.university_name);
     }catch (err) {
             console.error('getUniversityName error:', err);
