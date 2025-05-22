@@ -69,7 +69,7 @@ const partner = {
             for (let i = 0; i < university_uni.length; i++) {
                 obj.push(university_uni[i]);
             }
-            console.log("obj[0]: " ,obj[0]);
+            console.log("obj: " ,obj);
             return res.json(obj);
         } catch (err) {
             console.error('getPartner error:', err);
