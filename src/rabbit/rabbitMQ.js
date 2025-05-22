@@ -47,7 +47,6 @@ async function sendUniversityURL(university_url, sendQueueName) {
       replyTo: recvQueueName,
     }
   );
-  console.log(`[partner] university_url 전송: ${university_url} → ${sendQueueName}`);
 }
 
 // university data 수신
@@ -63,7 +62,6 @@ async function receiveUniversityData(queueName) {
     const msg = await channel.get(queueName, { noAck: false });
     if (msg) {
       const data = JSON.parse(msg.content.toString());
-      console.log(`[partner] ${queueName} 수신:`, data);
       channel.ack(msg);
       return data;
     }

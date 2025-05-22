@@ -1,6 +1,7 @@
 import loadKakaoMap from '/js/kakaomapLoader.js';
 import { apiUrl } from '/js/apiUrl.js';
 
+
 // 지도 전역변수 선언
 let map;
 

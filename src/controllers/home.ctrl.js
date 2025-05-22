@@ -3,6 +3,7 @@
 const Partner = require("../models/Partner");
 const bcrypt = require('bcrypt');
 const { sendUniversityURL, receiveUniversityData } = require('../rabbit/rabbitMQ');
+const { fetchUserInfoFromUserService } = require("../utils/userClient");
 
 const output = {
     partner: (req, res) => {
@@ -66,7 +67,7 @@ const partner = {
         }
     },
     uploadPartnerStore: async (req, res) => {
-        try {         
+        try {        
             const university_url = req.body.university_url;
             const partner_name = req.body.partner_name,
                 address = req.body.store_address,
@@ -113,7 +114,6 @@ const university = {
             await sendUniversityURL(university_url, 'SendUniversityName');
 
             const data = await receiveUniversityData('RecvUniversityName')
-            console.log(data.university_name);
             return res.json(data.university_name);
     }catch (err) {
             console.error('getUniversityName error:', err);

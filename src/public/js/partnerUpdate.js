@@ -1,6 +1,28 @@
 "use strict";
 import loadKakaoMap from '/js/kakaomapLoader.js';
 import { apiUrl } from '/js/apiUrl.js';
+
+let userInfo; // 유저정보
+const userApiUrl = "http://34.47.84.123:3004";
+
+// 작성자 회원 정보 불러오기
+const loadloginData = async () => {
+  const res = await fetch(`${userApiUrl}/auth/me`, {
+    credentials: "include", // 쿠키 포함
+  });
+  
+  console.log("🔍 응답 상태:", res.status); // 200, 401 등
+  console.log("🔍 응답 OK 여부:", res.ok);
+
+  if (!res.ok) {
+    alert("로그인이 필요합니다.");
+    return;
+  }
+  const data = await res.json();
+  console.log("✅ 받아온 유저 정보:", data); // 실제 유저 정보 로그
+  userInfo = data; 
+};
+
 // 기본 좌표 저징 지도 코드
 // ===========================================================================================
 document.addEventListener("DOMContentLoaded", async () => {
