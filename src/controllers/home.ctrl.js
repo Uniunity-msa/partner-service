@@ -34,13 +34,6 @@ const partner = {
         try {
             const university_url = req.body.university_url;
 
-            // RabbitMQ로 university_id 요청 및 수신
-            await sendUniversityURL(university_url, 'SendUniversityID');
-            const university_id = await receiveUniversityData('RecvUniversityID');
-
-            // university_id 값은 객체 안에 있을 가능성이 크니 적절히 꺼내기
-            const id = university_id.university_id || university_id;
-
             // RabbitMQ로 university_location 요청 및 수신
             await sendUniversityURL(university_url, 'SendUniversityLocation');
             const university_location = await receiveUniversityData('RecvUniversityLocation');
