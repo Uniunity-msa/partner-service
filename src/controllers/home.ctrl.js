@@ -124,17 +124,15 @@ const partner = {
 const university = {
     getUniversityName: async (req, res) => {
     try {
-        const university_url = req.body.university_url;
+            const university_url = req.body.university_url;
 
-        await sendUniversityURL(university_url, 'SendUniversityName');
+            await sendUniversityURL(university_url, 'SendUniversityName');
 
-        await receiveUniversityData('RecvUniversityName', (data) => {
-        return res.json({ university_name: data.university_name });
-        });
-
-        } catch (err) {
-        console.error('getUniversityName error:', err);
-        return res.status(500).json({ error: 'Internal Server Error' });
+            const data = await receiveUniversityData('RecvUniversityName')
+            return res.json(data.university_name);
+    }catch (err) {
+            console.error('getUniversityName error:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
         }
     }
 }
