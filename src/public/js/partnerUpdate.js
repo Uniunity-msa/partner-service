@@ -49,6 +49,7 @@ const storeName = document.querySelector('#storeName'),
       startDate = document.querySelector('#startDate'),
       endDate = document.querySelector('#endDate');
 var getlatitude, getlongitude;
+const universityName = document.getElementById("universityName");
 
 // university_url 값을 받아오는 함수
 function getUniversityUrl() {
@@ -192,7 +193,6 @@ function updateStore(){
 window.addEventListener('load', function () {
   getUniversityName();
   loadloginData();
-  updateStore();
 });
 
 window.addEventListener('DOMContentLoaded', centerChange); // 이건 '제휴 가게 등록하기' 버튼 클릭 시 함수 실행으로 추후에 변경하기

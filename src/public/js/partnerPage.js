@@ -1,7 +1,6 @@
 import loadKakaoMap from '/js/kakaomapLoader.js';
 import { apiUrl } from '/js/apiUrl.js';
 
-
 // 지도 전역변수 선언
 let map;
 
@@ -202,13 +201,6 @@ function partnerLoad() {
     });
 }
 
-window.addEventListener('load', function () {
-  getUniversityName();
-  // updateDynamicLinks();
-  // loadloginData();
-  partnerLoad();
-});
-
 // 현재 URL의 경로 일부 가져오기 (partner 뒤의 학교 이름 추출함)
 function getDynamicValueFromURL() {
   var path = window.location.pathname;
@@ -277,3 +269,9 @@ async function updateDynamicLinks() {
 
 }
 
+
+window.addEventListener('load', function () {
+  getUniversityName();
+  partnerLoad();
+  updateDynamicLinks();
+});
