@@ -10,7 +10,7 @@ async function connectRabbitMQ() {
   const connection = await amqp.connect(rabbitUrl);
   channel = await connection.createChannel();
 
-  await channel.assertQueue(SEND_QUEUE, { durable: false });
+  // await channel.assertQueue(SEND_QUEUE, { durable: false });
   await channel.assertQueue(RECV_QUEUE, { durable: false });
 
   return channel;
