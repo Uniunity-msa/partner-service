@@ -4,6 +4,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require('path');
+const rabbitMQ = require("./src/rabbit/rabbitMQ");
 
 const app = express();
 
@@ -12,6 +13,19 @@ const errorController = require("./src/controllers/errorController.js");
 require('dotenv').config();
 
 const bcrypt = require('bcrypt');
+
+// RabbitMQ 연결 및 메시지 소비
+(async () => {
+  try {
+      await rabbitMQ.connectToRabbitMQ();
+      rabbitMQ.consumeMessages();
+      console.log('RabbitMQ 연결 및 메시지 소비 준비 완료');
+  } catch (err) {
+      console.error("RabbitMQ 연결 실패:", err);
+      process.exit(1);
+  }
+})();
+
 
 // 앱 셋팅
 // 서버가 읽을 수 있도록 HTML 의 위치를 정의해줍니다.

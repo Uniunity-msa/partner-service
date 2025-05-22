@@ -2,6 +2,7 @@
 
 const Partner = require("../models/Partner");
 const bcrypt = require('bcrypt');
+const { sendUniversityURL, receiveUniversityName } = require('../rabbit/rabbitMQ');
 
 const output = {
     partner: (req, res) => {
@@ -74,10 +75,20 @@ const partner = {
 };
 
 const university = {
+    // getUniversityName: async (req, res) => {
+    //     const partner = new Partner();
+    //     const response = await partner.getUniversityName(req.body.university_url);
+    //     return res.json(response);
+    // }
+
     getUniversityName: async (req, res) => {
-        const partner = new Partner();
-        const response = await partner.getUniversityName(req.body.university_url);
-        return res.json(response);
+      const universityUrl = req.body.university_url;
+      // RabbitMQ 요청 전송
+      sendUniversityURL(universityUrl);
+      // 응답 수신 대기 후 클라이언트에 전달
+      receiveUniversityName((name) => {
+        return res.json({ university_name: name });
+      });
     }
 }
 
