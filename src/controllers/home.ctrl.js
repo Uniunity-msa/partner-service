@@ -36,14 +36,14 @@ const partner = {
 
             // RabbitMQ로 university_id 요청 및 수신
             await sendUniversityURL(university_url, 'SendUniversityID');
-            const university_id = await receiveUniversityDataAsync('RecvUniversityID');
+            const university_id = await receiveUniversityData('RecvUniversityID');
 
             // university_id 값은 객체 안에 있을 가능성이 크니 적절히 꺼내기
             const id = university_id.university_id || university_id;
 
             // RabbitMQ로 university_location 요청 및 수신
             await sendUniversityURL(university_url, 'SendUniversityLocation');
-            const university_location = await receiveUniversityDataAsync('RecvUniversityLocation');
+            const university_location = await receiveUniversityData('RecvUniversityLocation');
 
             return res.json(university_location);
 
@@ -59,10 +59,10 @@ const partner = {
 
             // 통신으로 university_id와 university_location 받아오기
             await sendUniversityURL(university_url, 'SendUniversityID');
-            const university_id = await receiveUniversityDataAsync('RecvUniversityID');
+            const university_id = await receiveUniversityData('RecvUniversityID');
 
             await sendUniversityURL(university_url, 'SendUniversityLocation');
-            const university_location = await receiveUniversityDataAsync('RecvUniversityLocation');
+            const university_location = await receiveUniversityData('RecvUniversityLocation');
 
             const partner = new Partner();
             const university_uni = await partner.getPartnerStores(university_id.university_id); // ID 객체에서 값 꺼냄
@@ -103,7 +103,7 @@ const partner = {
 
             // university_id를 RabbitMQ를 통해 받음
             await sendUniversityURL(university_url, 'SendUniversityID');
-            const university_id_obj = await receiveUniversityDataAsync('RecvUniversityID');
+            const university_id_obj = await receiveUniversityData('RecvUniversityID');
             const university_id = university_id_obj.university_id; // 객체에서 실제 ID 추출
 
             const partner = new Partner();

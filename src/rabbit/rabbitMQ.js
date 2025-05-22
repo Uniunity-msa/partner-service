@@ -30,12 +30,12 @@ async function connectRabbitMQ() {
 async function sendUniversityURL(university_url, sendQueueName) {
   if (!channel) await connectRabbitMQ();
   let recvQueueName;
-  if(sendQueueName == 'RecvUniversityName'){
-    recvQueueName = 'SendUniversityName';
-  } else if(sendQueueName == 'RecvUniversityID'){
-    recvQueueName = 'SendUniversityID';
-  } else if(sendQueueName == 'RecvUniversityLocation'){
-    recvQueueName = 'SendUniversityLocation'
+  if(sendQueueName == 'SendUniversityName'){
+    recvQueueName = 'RecvUniversityName';
+  } else if(sendQueueName == 'SendUniversityID'){
+    recvQueueName = 'RecvUniversityID';
+  } else if(sendQueueName == 'SendUniversityLocation'){
+    recvQueueName = 'RecvUniversityLocation'
   } else{
     console.log("명시되지 않은 sendQueueName 입니다.");
   }
