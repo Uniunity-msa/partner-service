@@ -34,7 +34,7 @@ async function receiveUniversityName(callback) {
   if (!channel) await connectRabbitMQ();
 
   channel.consume(RECV_QUEUE, (msg) => {
-    const universityName = msg.content.toString();
+    const university_name = msg.content.toString();
     console.log(`[partner] university_name 수신: ${university_name}`);
     if (callback) callback(university_name);
   }, { noAck: true });
