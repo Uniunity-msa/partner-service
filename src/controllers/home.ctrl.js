@@ -58,13 +58,13 @@ const partner = {
             const university_location = await receiveUniversityData('RecvUniversityLocation');
 
             const partner = new Partner();
-            const university_uni = await partner.getPartnerStores(university_id.university_id); // ID 객체에서 값 꺼냄
+            const university_uni = await partner.getPartnerStores(university_id); // ID 객체에서 값 꺼냄
 
             // 응답 객체 구성
             const obj = [];
             obj.push({
-                latitudeUni: university_location.university_location.latitude,
-                longitudeUni: university_location.university_location.longitude,
+                latitudeUni: university_location.latitude,
+                longitudeUni: university_location.longitude,
             });
             for (let i = 0; i < university_uni.length; i++) {
                 obj.push(university_uni[i]);
