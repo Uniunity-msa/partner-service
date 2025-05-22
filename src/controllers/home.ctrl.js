@@ -89,18 +89,15 @@ const partner = {
         return res.json(response);
     },
     uploadPartnerStore: async (req, res) => {
-        try {
-            const {
-                partner_name,
-                address,
-                latitude,
-                longitude,
-                content,
-                start_period,
-                end_period,
-                university_url
-            } = req.body;
-
+        try {         
+            const university_url = req.body.university_url;
+            const partner_name = req.body.partner_name,
+                address = req.body.store_address,
+                latitude = req.body.latitude,
+                longitude = req.body.longitude,
+                content = req.body.content,
+                start_period = req.body.start_period,
+                end_period = req.body.end_period;
             // university_id를 RabbitMQ를 통해 받음
             await sendUniversityURL(university_url, 'SendUniversityID');
             const university_id_obj = await receiveUniversityData('RecvUniversityID');
