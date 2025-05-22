@@ -61,6 +61,34 @@ function getUniversityUrl() {
     return universityUrl;
 }
 
+function getUniversityName() {
+  const universityUrl = getUniversityUrl();
+  const req = {
+    university_url: universityUrl
+  };
+  fetch(`${apiUrl}/getUniversityName`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(req),
+  })
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return res.json();
+    })
+    .then(res => {
+      console.log(res);
+      // Uniname.push(res);
+      universityName.textContent = res;
+    })
+    .catch((error) => {
+      console.error('There has been a problem with your fetch operation:', error);
+    });
+}
+
 function setCenter(map,latitude,longitude) {
     // 이동할 위도 경도 위치를 생성합니다
     var moveLatLon = new kakao.maps.LatLng(latitude,longitude);
@@ -160,6 +188,12 @@ function updateStore(){
         console.log(res);
     })
 }
+
+window.addEventListener('load', function () {
+  getUniversityName();
+  loadloginData();
+  updateStore();
+});
 
 window.addEventListener('DOMContentLoaded', centerChange); // 이건 '제휴 가게 등록하기' 버튼 클릭 시 함수 실행으로 추후에 변경하기
 storeUploadBtn.addEventListener('click',updateStore);
