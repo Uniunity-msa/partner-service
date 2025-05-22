@@ -1,5 +1,4 @@
 const amqp = require("amqplib");
-const { v4: uuidv4 } = require('uuid');
 
 const SEND_QUEUE = 'SendUniversityName';
 const RECV_QUEUE = 'RecvUniversityName';
