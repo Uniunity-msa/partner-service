@@ -19,17 +19,6 @@ const output = {
 
 //제휴 파트
 const partner = {
-    getUniversityID: async (req, res) => {
-        const partner = new Partner();
-        const response = await partner.getUniversityID(req.params.university_url);
-        return res.json(response);
-    },
-    getPartnerUni: async (req, res) => {
-        const partner = new Partner();
-        const university_id = await partner.getUniversityID(req.body.university_url);
-        const response = await partner.getPartnerStores(university_id);
-        return res.json(response);
-    },
     getUniversityLocation: async (req, res) => {
         try {
             const university_url = req.body.university_url;
@@ -75,11 +64,6 @@ const partner = {
             console.error('getPartner error:', err);
             return res.status(500).json({ error: 'Internal Server Error' });
         }
-    },
-    getUniversityID_name: async (req, res) => {
-        const partner = new Partner();
-        const response = await partner.getUniversityID(req.params.university_url);
-        return res.json(response);
     },
     uploadPartnerStore: async (req, res) => {
         try {         

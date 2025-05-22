@@ -129,8 +129,6 @@ function partnerLoad() {
     .then(res => {
       center = []; // center 배열 초기화
       center.push(res[0]);
-      console.log(res[0]);
-      console.log(res);
       setCenter(map, parseFloat(center[0].latitudeUni), parseFloat(center[0].longitudeUni));
       var now = new Date();
       var nowYear = (now.getFullYear()).toString();
