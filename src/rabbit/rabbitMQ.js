@@ -16,10 +16,16 @@ async function connectRabbitMQ() {
 }
 
 // university_url을 전송
-async function sendUniversityURL(universityUrl) {
+async function sendUniversityURL(university_url) {
   if (!channel) await connectRabbitMQ();
-  channel.sendToQueue(SEND_QUEUE, Buffer.from(universityUrl));
-  console.log(`[partner] university_url 전송: ${universityUrl}`);
+  channel.sendToQueue(
+  SEND_QUEUE,
+  Buffer.from(university_url),
+  {
+    replyTo: RECV_QUEUE, // 응답 받을 큐를 명시
+  }
+);
+  console.log(`[partner] university_url 전송: ${university_url}`);
 }
 
 // university_name 수신
@@ -28,8 +34,8 @@ async function receiveUniversityName(callback) {
 
   channel.consume(RECV_QUEUE, (msg) => {
     const universityName = msg.content.toString();
-    console.log(`[partner] university_name 수신: ${universityName}`);
-    if (callback) callback(universityName);
+    console.log(`[partner] university_name 수신: ${university_name}`);
+    if (callback) callback(university_name);
   }, { noAck: true });
 }
 

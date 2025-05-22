@@ -82,9 +82,9 @@ const university = {
     // }
 
     getUniversityName: async (req, res) => {
-      const universityUrl = req.body.university_url;
+      const university_url = req.body.university_url;
       // RabbitMQ 요청 전송
-      sendUniversityURL(universityUrl);
+      sendUniversityURL(university_url);
       // 응답 수신 대기 후 클라이언트에 전달
       receiveUniversityName((name) => {
         return res.json({ university_name: name });
