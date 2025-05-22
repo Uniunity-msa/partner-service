@@ -27,47 +27,51 @@ async function connectRabbitMQ() {
 }
 
 // university_url을 전송
-async function sendUniversityURL(university_url) {
+async function sendUniversityURL(university_url, sendQueueName) {
   if (!channel) await connectRabbitMQ();
-
-  const recvQueue = getRecvQueueFromSend(queueName);
-  if (!recvQueue) {
-    throw new Error(`recvQueue를 찾을 수 없습니다: ${queueName}`);
+  let recvQueueName;
+  if(sendQueueName == 'RecvUniversityName'){
+    recvQueueName = 'SendUniversityName';
+  } else if(sendQueueName == 'RecvUniversityID'){
+    recvQueueName = 'SendUniversityID';
+  } else if(sendQueueName == 'RecvUniversityLocation'){
+    recvQueueName = 'SendUniversityLocation'
+  } else{
+    console.log("명시되지 않은 sendQueueName 입니다.");
   }
 
   channel.sendToQueue(
-    queueName,
+    sendQueueName,  // 올바르게 인자로 받은 큐 이름 사용
     Buffer.from(JSON.stringify({ university_url })),
-    { replyTo: recvQueue }
+    {
+      replyTo: recvQueueName,
+    }
   );
-
-  console.log(`[partner] university_url 전송: ${university_url} → ${queueName}`);
+  console.log(`[partner] university_url 전송: ${university_url} → ${sendQueueName}`);
 }
 
-// university_name 수신
-async function receiveUniversityData(queueName, callback) {
+// university data 수신
+async function receiveUniversityData(queueName) {
   if (!channel) await connectRabbitMQ();
 
   if (!RECV_QUEUES.includes(queueName)) {
     throw new Error(`알 수 없는 수신 큐: ${queueName}`);
   }
 
-  channel.consume(queueName, (msg) => {
-    const data = JSON.parse(msg.content.toString());
-    console.log(`[partner] ${queueName} 수신:`, data);
-    if (callback) callback(data);
-  }, { noAck: true });
+  return new Promise((resolve, reject) => {
+    channel.consume(queueName, (msg) => {
+      if (msg) {
+        const data = JSON.parse(msg.content.toString());
+        console.log(`[partner] ${queueName} 수신:`, data);
+        channel.ack(msg);  // 메시지 확인(ack)해서 큐에서 제거
+        resolve(data);
+      } else {
+        reject(new Error('메시지를 받지 못했습니다.'));
+      }
+    }, { noAck: false });  // noAck: false 로 ack를 직접 호출하게 함
+  });
 }
-
-// Send 큐 이름을 기반으로 Recv 큐 이름 추출
-function getRecvQueueFromSend(sendQueue) {
-  const index = SEND_QUEUES.indexOf(sendQueue);
-  return index !== -1 ? RECV_QUEUES[index] : null;
-}
-
-
 module.exports = {
   sendUniversityURL,
-  receiveUniversityData,
-  connectRabbitMQ
+  receiveUniversityData
 };

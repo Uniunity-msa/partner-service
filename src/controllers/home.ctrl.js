@@ -31,20 +31,37 @@ const partner = {
         return res.json(response);
     },
     getUniversityLocation: async (req, res) => {
-        const partner = new Partner();
-        const university_id = await partner.getUniversityID(req.body.university_url);
-        const response = await partner.getUniversityLocation(university_id);
-        return res.json(response);
+        try {
+            const university_url = req.body.university_url;
+
+            // RabbitMQ로 university_id 요청 및 수신
+            await sendUniversityURL(university_url, 'SendUniversityID');
+            const university_id = await receiveUniversityDataAsync('RecvUniversityID');
+
+            // university_id 값은 객체 안에 있을 가능성이 크니 적절히 꺼내기
+            const id = university_id.university_id || university_id;
+
+            // RabbitMQ로 university_location 요청 및 수신
+            await sendUniversityURL(university_url, 'SendUniversityLocation');
+            const university_location = await receiveUniversityDataAsync('RecvUniversityLocation');
+
+            return res.json(university_location);
+
+        } catch (err) {
+            console.error('getUniversityLocation error:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
     },
+
     getPartner: async (req, res) => {
         try {
             const university_url = req.body.university_url;
 
             // 통신으로 university_id와 university_location 받아오기
-            await sendUniversityURL('SendUniversityID', university_url);
+            await sendUniversityURL(university_url, 'SendUniversityID');
             const university_id = await receiveUniversityDataAsync('RecvUniversityID');
 
-            await sendUniversityURL('SendUniversityLocation', university_url);
+            await sendUniversityURL(university_url, 'SendUniversityLocation');
             const university_location = await receiveUniversityDataAsync('RecvUniversityLocation');
 
             const partner = new Partner();
@@ -53,11 +70,11 @@ const partner = {
             // 응답 객체 구성
             const obj = [];
             obj.push({
-            latitudeUni: university_location.university_location.latitude,
-            longitudeUni: university_location.university_location.longitude,
+                latitudeUni: university_location.university_location.latitude,
+                longitudeUni: university_location.university_location.longitude,
             });
             for (let i = 0; i < university_uni.length; i++) {
-            obj.push(university_uni[i]);
+                obj.push(university_uni[i]);
             }
 
             return res.json(obj);
@@ -85,7 +102,7 @@ const partner = {
             } = req.body;
 
             // university_id를 RabbitMQ를 통해 받음
-            await sendUniversityURL('SendUniversityID', university_url);
+            await sendUniversityURL(university_url, 'SendUniversityID');
             const university_id_obj = await receiveUniversityDataAsync('RecvUniversityID');
             const university_id = university_id_obj.university_id; // 객체에서 실제 ID 추출
 
@@ -118,23 +135,17 @@ const university = {
     getUniversityName: async (req, res) => {
     try {
         const university_url = req.body.university_url;
-        
-        // 송신할 큐 이름
-        const sendQueue = 'SendUniversityName';
-        const recvQueue = 'RecvUniversityName';
 
-        // university_url 전송
-        await sendUniversityURL(sendQueue, university_url);
+        await sendUniversityURL(university_url, 'SendUniversityName');
 
-        // 수신 및 응답
-        await receiveUniversityData(recvQueue, (data) => {
+        await receiveUniversityData('RecvUniversityName', (data) => {
         return res.json({ university_name: data.university_name });
         });
-        
-    } catch (err) {
+
+        } catch (err) {
         console.error('getUniversityName error:', err);
         return res.status(500).json({ error: 'Internal Server Error' });
-    }
+        }
     }
 }
 
