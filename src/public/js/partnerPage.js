@@ -99,8 +99,10 @@ function getUniversityName() {
       return res.json();
     })
     .then(res => {
+      console.log(res);
       Uniname.push(res.university_name);
       universityName.textContent = Uniname[0];
+      console.log(Uniname[0]);
     })
     .catch((error) => {
       console.error('There has been a problem with your fetch operation:', error);
