@@ -69,7 +69,7 @@ const partner = {
             for (let i = 0; i < university_uni.length; i++) {
                 obj.push(university_uni[i]);
             }
-            console.log("obj: " ,obj);
+            console.log("obj: " , obj);
             return res.json(obj);
         } catch (err) {
             console.error('getPartner error:', err);
@@ -129,6 +129,7 @@ const university = {
             await sendUniversityURL(university_url, 'SendUniversityName');
 
             const data = await receiveUniversityData('RecvUniversityName')
+            console.log(data.university_name);
             return res.json(data.university_name);
     }catch (err) {
             console.error('getUniversityName error:', err);
