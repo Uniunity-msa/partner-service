@@ -6,7 +6,8 @@ const RECV_QUEUE = 'RecvUniversityName';
 let channel;
 
 async function connectRabbitMQ() {
-  const connection = await amqp.connect('amqp://localhost');
+  const rabbitUrl = process.env.RABBIT || 'amqp://localhost'; // env 변수 사용, 없으면 localhost 기본
+  const connection = await amqp.connect(rabbitUrl);
   channel = await connection.createChannel();
 
   await channel.assertQueue(SEND_QUEUE, { durable: false });
