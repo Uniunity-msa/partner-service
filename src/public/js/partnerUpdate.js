@@ -95,6 +95,7 @@ function setCenter(map,latitude,longitude) {
     map.setCenter(moveLatLon);
 }
 
+let latitude, longitude;
 // 학교별로 중심좌표 이동시키기
 function centerChange(){
     const universityUrl = getUniversityUrl();
@@ -110,7 +111,8 @@ function centerChange(){
         body: JSON.stringify(req),
     }).then((res) => res.json())
     .then(res => {
-        setCenter(map,parseFloat(res.latitude),parseFloat(res.longitude));
+        latitude = res.latitude;
+        longitude = res.longitude;
     })
 }
 
@@ -118,13 +120,14 @@ document.addEventListener('DOMContentLoaded', () => {
     loadKakaoMap()
       .then(() => {
         const container = document.getElementById('map');
+        centerChange();
         const options = {
-          center: new kakao.maps.LatLng(37.59169598260442, 127.02220971655647), // 초기 중심 좌표
+          center: new kakao.maps.LatLng(latitude, longitude), // 초기 중심 좌표
           level: 3
         };
         map = new kakao.maps.Map(container, options);
         const geocoder = new kakao.maps.services.Geocoder();
-  
+        centerChange();
         BtnAddr.addEventListener('click', function () {
           const address = store_location.value;
   
@@ -185,7 +188,6 @@ function updateStore(){
 
 window.addEventListener('load', function () {
   getUniversityName();
-  centerChange();
   loadloginData();
 });
 
