@@ -25,19 +25,19 @@ const loadloginData = async () => {
 
 // 기본 좌표 저징 지도 코드
 // ===========================================================================================
-document.addEventListener("DOMContentLoaded", async () => {
-    try {
-      await loadKakaoMap(); // kakao SDK 로드 및 초기화
-      const container = document.getElementById('map');
-      const options = {
-        center: new kakao.maps.LatLng(37.59169598260442, 127.02220971655647), // 서울 중심
-        level: 3
-      };
-      const map = new kakao.maps.Map(container, options);
-    } catch (error) {
-      console.error("Kakao 지도 로딩 실패:", error);
-    }
-  });
+// document.addEventListener("DOMContentLoaded", async () => {
+//     try {
+//       await loadKakaoMap(); // kakao SDK 로드 및 초기화
+//       const container = document.getElementById('map');
+//       const options = {
+//         center: new kakao.maps.LatLng(37.59169598260442, 127.02220971655647), // 서울 중심
+//         level: 3
+//       };
+//       const map = new kakao.maps.Map(container, options);
+//     } catch (error) {
+//       console.error("Kakao 지도 로딩 실패:", error);
+//     }
+//   });
 // ===========================================================================================
 
 const storeUploadBtn = document.querySelector('#uploadBtn'),
@@ -110,7 +110,6 @@ function centerChange(){
         body: JSON.stringify(req),
     }).then((res) => res.json())
     .then(res => {
-        console.log(res);
         setCenter(map,parseFloat(res.latitude),parseFloat(res.longitude));
     })
 }
@@ -124,8 +123,6 @@ document.addEventListener('DOMContentLoaded', () => {
           level: 3
         };
         map = new kakao.maps.Map(container, options);
-        // 지도 중심값 변경하기
-        centerChange();
         const geocoder = new kakao.maps.services.Geocoder();
   
         BtnAddr.addEventListener('click', function () {
@@ -188,6 +185,7 @@ function updateStore(){
 
 window.addEventListener('load', function () {
   getUniversityName();
+  centerChange();
   loadloginData();
 });
 
