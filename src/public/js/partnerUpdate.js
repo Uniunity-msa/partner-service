@@ -111,8 +111,7 @@ function centerChange(){
         body: JSON.stringify(req),
     }).then((res) => res.json())
     .then(res => {
-        latitude = res.latitude;
-        longitude = res.longitude;
+        setCenter(map, parseFloat(res.latitude, parseFloat(res.longitude)));
     })
 }
 
@@ -120,9 +119,8 @@ document.addEventListener('DOMContentLoaded', () => {
     loadKakaoMap()
       .then(() => {
         const container = document.getElementById('map');
-        centerChange();
         const options = {
-          center: new kakao.maps.LatLng(latitude, longitude), // 초기 중심 좌표
+          center: new kakao.maps.LatLng(37.59169598260442, 127.02220971655647), // 초기 중심 좌표
           level: 3
         };
         map = new kakao.maps.Map(container, options);
