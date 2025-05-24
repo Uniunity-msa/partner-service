@@ -7,6 +7,9 @@ var stores = [];
 var positions = [];
 var Uniname = [];
 
+// map을 전역 변수로 선언
+let map;
+
 const storeName = document.querySelector('#storeName'),
       storeAdr = document.querySelector('#storeAdr'),
       storeClass = document.querySelector('#storeClass'),
@@ -86,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const container = document.getElementById('map');
       if (!container) return console.error('#map 요소가 없습니다.');
   
-      const map = new kakao.maps.Map(container, {
+      map = new kakao.maps.Map(container, {
         center: new kakao.maps.LatLng(37.59169598260442, 127.02220971655647), // 초기 위치
         level: 3
       });
