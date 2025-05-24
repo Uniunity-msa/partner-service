@@ -3,7 +3,6 @@
 const Partner = require("../models/Partner");
 const bcrypt = require('bcrypt');
 const { sendUniversityURL, receiveUniversityData } = require('../rabbit/rabbitMQ');
-const { fetchUserInfoFromUserService } = require("../utils/userClient");
 
 const output = {
     partner: (req, res) => {
@@ -121,28 +120,6 @@ const university = {
         }
     }
 }
-
-// 소상공인 파트
-// 분류 기능 자체를 삭제함
-// const retailer = {
-//     retailer: async (req, res) => {
-//         res.render("retailer.html");
-//     },
-//     retailerKind: async (req, res) => {
-//         if (req.params.kind == 'all') {
-//             res.render("retailer.html");
-//         }
-//         else if (req.params.kind == 'food') {
-//             res.render("reatailerFood.html");
-//         }
-//         else if (req.params.kind == 'cafe') {
-//             res.render("retailerCafe.html")
-//         }
-//         else {
-//             res.render("retailer.html");
-//         }
-//     },
-// }
 
 module.exports = {
     output,

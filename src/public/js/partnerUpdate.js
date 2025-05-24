@@ -81,7 +81,6 @@ function setCenter(map,latitude,longitude) {
     map.setCenter(moveLatLon);
 }
 
-let latitude, longitude;
 // 학교별로 중심좌표 이동시키기
 function centerChange(){
     const universityUrl = getUniversityUrl();
