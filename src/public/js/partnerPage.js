@@ -130,21 +130,8 @@ function partnerLoad() {
       center = []; // center 배열 초기화
       center.push(res[0]);
       setCenter(map, parseFloat(center[0].latitudeUni), parseFloat(center[0].longitudeUni));
-      var now = new Date();
-      var nowYear = (now.getFullYear()).toString();
-      var nowMonth;
-      if ((now.getMonth() + 1) < 10) {
-        nowMonth = "0" + (now.getMonth() + 1).toString();
-      } else {
-        nowMonth = (now.getMonth() + 1).toString();
-      }
-      var nowDate;
-      if ((now.getDate()) < 10) {
-        nowDate = "0" + (now.getDate()).toString();
-      } else {
-        nowDate = (now.getDate()).toString();
-      }
-      const nowString = nowYear + "-" + nowMonth + "-" + nowDate;
+      const endDate = new Date(obj.endDate);
+      const now = new Date();
       // 새로운 객체 생성
       for (let i = 1; i < res.length; i++) {
         const obj = {
@@ -157,7 +144,7 @@ function partnerLoad() {
           endDate: res[i].end_period
         };
         // 제휴 종료일자가 오늘 보다 이전 날짜인 제휴 가게는 표시가 되지 않도록 함
-        if (obj.endDate >= nowString) {
+        if (endDate >= now) {
           stores.push(obj);
           // 객체의 좌표 부분은 따로 저장
           positions.push(new kakao.maps.LatLng(parseFloat(res[i].latitude), parseFloat(res[i].longitude)));
