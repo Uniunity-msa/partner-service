@@ -89,7 +89,6 @@ const partner = {
                 latitude,
                 longitude
             );
-            console.log(response);
             return res.json(response);
         } catch (err) {
             console.error('uploadPartnerStore error:', err);
