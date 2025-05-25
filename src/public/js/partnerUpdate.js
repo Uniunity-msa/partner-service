@@ -120,6 +120,8 @@ document.addEventListener('DOMContentLoaded', () => {
               const lat = parseFloat(result[0].y);
               const lng = parseFloat(result[0].x);
               const coords = new kakao.maps.LatLng(lat, lng);
+              getlatitude = result[0].y;
+              getlongitude = result[0].x;
   
               // 기존 마커가 있으면 제거
               if (marker) marker.setMap(null);
