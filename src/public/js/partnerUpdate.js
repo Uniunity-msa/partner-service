@@ -156,7 +156,7 @@ function updateStore(){
         end_period: end_period.value,
         university_url: universityUrl
     };
-
+    console.log(req);
     fetch(`${apiUrl}/uploadPartner`, {
         method: "POST",
         headers: {
@@ -169,6 +169,7 @@ function updateStore(){
         console.log(res);
     })
 }
+storeUploadBtn.addEventListener('click',updateStore);
 
 window.addEventListener('load', function () {
   getUniversityName();
@@ -176,4 +177,3 @@ window.addEventListener('load', function () {
 });
 
 window.addEventListener('DOMContentLoaded', centerChange); // 이건 '제휴 가게 등록하기' 버튼 클릭 시 함수 실행으로 추후에 변경하기
-storeUploadBtn.addEventListener('click',updateStore);

@@ -68,7 +68,7 @@ const partner = {
         try {        
             const university_url = req.body.university_url;
             const partner_name = req.body.partner_name,
-                address = req.body.store_address,
+                address = req.body.address,
                 latitude = req.body.latitude,
                 longitude = req.body.longitude,
                 content = req.body.content,
