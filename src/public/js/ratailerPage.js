@@ -16,7 +16,27 @@ const storeName = document.querySelector('#storeName'),
       storeItem = document.querySelector('#storeItem');
 const storeInfoTextBox = document.querySelectorAll(".storeInfoTextBox");
 const universityName = document.getElementById("universityName");
+const loginBtn = document.getElementById("loginStatusBtn"),
+      singupBtn = document.getElementById("signUpBtn");
+const loginNameBox = document.getElementById("loginNameBox");
 
+let userInfo; // 유저정보
+const userApiUrl = "http://34.47.84.123:3004";
+
+// 작성자 회원 정보 불러오기
+const loadloginData = async () => {
+  const res = await fetch(`${userApiUrl}/auth/me`, {
+    credentials: "include", // 쿠키 포함
+  });
+
+  if (!res.ok) {
+    
+    return;
+  }
+  const data = await res.json();
+  console.log("✅ 받아온 유저 정보:", data); // 실제 유저 정보 로그
+  userInfo = data; 
+};
 
 // university_url 값을 받아오는 함수
 function getUniversityUrl() {

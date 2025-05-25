@@ -24,7 +24,7 @@ const loadloginData = async () => {
 };
 
 const storeUploadBtn = document.querySelector('#uploadBtn'),
-      BtnAddr = document.querySelector('#serchBtnAddr'),
+      BtnAddr = document.querySelector('#searchBtnAddr'),
       BtnContent = document.querySelector('#serchBtnContent');
 const storeName = document.querySelector('#storeName'),
       store_location = document.querySelector('#store_location'),
@@ -109,8 +109,8 @@ document.addEventListener('DOMContentLoaded', () => {
           level: 3
         };
         map = new kakao.maps.Map(container, options);
-        const geocoder = new kakao.maps.services.Geocoder();
         centerChange();
+        const geocoder = new kakao.maps.services.Geocoder();
         BtnAddr.addEventListener('click', function () {
           const address = store_location.value;
   
