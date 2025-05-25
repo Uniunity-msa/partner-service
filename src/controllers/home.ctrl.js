@@ -73,10 +73,8 @@ const partner = {
                 content = req.body.content,
                 start_period = req.body.start_period,
                 end_period = req.body.end_period;
-            // university_id를 RabbitMQ를 통해 받음
             await sendUniversityURL(university_url, 'SendUniversityID');
-            const university_id_obj = await receiveUniversityData('RecvPartnerUniversityID');
-            const university_id = university_id_obj.university_id; // 객체에서 실제 ID 추출
+            const university_id = await receiveUniversityData('RecvPartnerUniversityID');
 
             const partner = new Partner();
             const response = await partner.uploadPartnerStore(
