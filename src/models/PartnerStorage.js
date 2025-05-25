@@ -38,6 +38,7 @@ class PartnerStorage{
                         console.error('Query 오류',err);
                         reject(err);
                     }
+                    console.log("PartnerStorage.js uploadPartnerStore 실행");
                     resolve(rows[0]);
                 })
             });

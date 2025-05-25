@@ -15,6 +15,7 @@ class Partner{
     async uploadPartnerStore(partner_name, content, start_period, end_period, address, university_id, latitude, longitude){
         try{
             const response = await PartnerStorage.uploadPartnerStore(partner_name, content, start_period, end_period, address, university_id, latitude, longitude);
+            console.log("Partner.js uploadPartnerStore 실행");
             return response;
         }catch(err){
             return{success:false,msg:err};
