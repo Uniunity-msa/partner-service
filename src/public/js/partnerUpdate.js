@@ -167,9 +167,20 @@ function updateStore(){
         body: JSON.stringify(req),
     })
     .then((res) => res.json())
-    .then(res => {
-        console.log(res);
+    .then((res) => {
+        // 성공적으로 처리되었는지 확인 (예: success: true 여부)
+        if (res && res.success !== false) {
+            // 페이지 이동
+            window.location.href = `${apiUrl}/partner/${universityUrl}`;
+        } else {
+            console.error('업로드 실패:', res.msg || '알 수 없는 오류');
+            alert("업로드에 실패했습니다.");
+        }
     })
+    .catch((err) => {
+        console.error('updateStore 실패', err);
+        alert("업로드에 실패했습니다.");
+    });
 }
 storeUploadBtn.addEventListener('click',updateStore);
 
