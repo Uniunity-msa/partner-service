@@ -161,8 +161,11 @@ function partnerLoad() {
           stores.push(obj);
           // 객체의 좌표 부분은 따로 저장
           positions.push(new kakao.maps.LatLng(parseFloat(res[i].latitude), parseFloat(res[i].longitude)));
+          console.log("좌표", res[i].latitude, res[i].longitude);
+          console.log("좌표 숫자 변환", parseFloat(res[i].latitude), parseFloat(res[i].longitude));
         }
       };
+      console.log("positions", positions);
       for (let i = 0; i < positions.length; i++) {
         // 마커를 생성합니다
         let marker = new kakao.maps.Marker({
