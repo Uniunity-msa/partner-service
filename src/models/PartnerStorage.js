@@ -39,7 +39,7 @@ class PartnerStorage{
                         reject(err);
                     }
                     console.log("PartnerStorage.js uploadPartnerStore 실행");
-                    resolve(rows[0]);
+                    resolve(rows);
                 })
             });
         })    
