@@ -36,6 +36,7 @@ const universityName = document.getElementById("universityName");
 
 // map을 전역 변수로 선언
 let map;
+let marker;
 
 // university_url 값을 받아오는 함수
 function getUniversityUrl() {
