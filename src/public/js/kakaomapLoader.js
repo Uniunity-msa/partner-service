@@ -5,7 +5,7 @@ const loadKakaoMap = () => {
     if (window.kakao && window.kakao.maps) return resolve(); // 중복 방지
 
     const script = document.createElement("script");
-    script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${apiKeys.KAKAO_API_KEY}&autoload=false`;
+    script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${apiKeys.KAKAO_API_KEY}&autoload=false&libraries=services`;
     script.onload = () => {
       kakao.maps.load(() => resolve());
     };
