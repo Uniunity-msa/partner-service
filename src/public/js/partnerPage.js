@@ -130,7 +130,6 @@ function partnerLoad() {
       center = []; // center 배열 초기화
       center.push(res[0]);
       setCenter(map, parseFloat(center[0].latitudeUni), parseFloat(center[0].longitudeUni));
-      const endDate = new Date(obj.endDate);
       const now = new Date();
       // 새로운 객체 생성
       for (let i = 1; i < res.length; i++) {
@@ -144,7 +143,7 @@ function partnerLoad() {
           endDate: res[i].end_period
         };
         // 제휴 종료일자가 오늘 보다 이전 날짜인 제휴 가게는 표시가 되지 않도록 함
-        if (endDate >= now) {
+        if (obj.endDate >= now) {
           stores.push(obj);
           // 객체의 좌표 부분은 따로 저장
           positions.push(new kakao.maps.LatLng(parseFloat(res[i].latitude), parseFloat(res[i].longitude)));
