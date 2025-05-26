@@ -18,11 +18,7 @@ const loadloginData = async () => {
   const res = await fetch(`${userApiUrl}/auth/me`, {
     credentials: "include", // 쿠키 포함
   });
-  const data = await res.json();
-  console.log(res);
-  console.log(data);
-  userInfo = data; 
-  if (data.loginStatus == true){
+  if (res.ok == true){
     console.log("로그인 된 상태");
     loginStatusBtn.setAttribute("href", `${userApiUrl}/logout`);
     loginStatusBtn.innerText = "로그아웃"
@@ -35,7 +31,8 @@ const loadloginData = async () => {
     signUpBtn.setAttribute("href", `${userApiUrl}/signup/agreement`);
     signUpBtn.innerText = "회원가입"
   }
-  
+  const data = await res.json();
+  userInfo = data; 
 };
 
 // 기본 좌표 저징 지도 코드

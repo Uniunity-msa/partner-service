@@ -17,20 +17,27 @@ const loginBtn = document.getElementById("loginStatusBtn"),
 const loginNameBox = document.getElementById("loginNameBox");
 
 let userInfo; // 유저정보
-const userApiUrl = "http://34.47.84.123:3004";
+const userApiUrl = baseUrls.user;
 
 // 작성자 회원 정보 불러오기
 const loadloginData = async () => {
   const res = await fetch(`${userApiUrl}/auth/me`, {
     credentials: "include", // 쿠키 포함
   });
-
-  if (!res.ok) {
-    
-    return;
+  if (res.ok == true){
+    console.log("로그인 된 상태");
+    loginStatusBtn.setAttribute("href", `${userApiUrl}/logout`);
+    loginStatusBtn.innerText = "로그아웃"
+    signUpBtn.setAttribute("href", `${userApiUrl}/mypage`);
+    signUpBtn.innerText = "마이페이지"
+  } else {
+    console.log("로그아웃 된 상태");
+    loginStatusBtn.setAttribute("href", `${userApiUrl}/login`);
+    loginStatusBtn.innerText = "로그인"
+    signUpBtn.setAttribute("href", `${userApiUrl}/signup/agreement`);
+    signUpBtn.innerText = "회원가입"
   }
   const data = await res.json();
-  console.log("✅ 받아온 유저 정보:", data); // 실제 유저 정보 로그
   userInfo = data; 
 };
 
@@ -186,13 +193,6 @@ function retailerLoad(){
     })
 }
 
-window.addEventListener('load',function(){
-    getUniversityName();
-    retailerLoad();
-    updateDynamicLinks();
-    loadloginData();
-});
-
 
 // 현재 URL의 경로 일부 가져오기 (retailer 뒤의 학교 이름 추출함)
 function getDynamicValueFromURL() {
@@ -208,22 +208,28 @@ function getDynamicValueFromURL() {
     
 // 새로운 url 만들기
 function generateDynamicURL(linkId, userschool) {
-    var dynamicValue;
+  var dynamicValue;
+  var url;
 
-    // linkId에 따라 동적 값을 할당하는 로직을 구현합니다.
-    if (linkId === "retailer") {
-        dynamicValue = "retailer/" + userschool;
-      } else if (linkId === "partner") {
-        dynamicValue = "partner/" + userschool;
-      } else if (linkId === "more_news") {
-        dynamicValue = "showPostListAll/" + userschool;
-      } else if (linkId === "news") {
-        dynamicValue = "showPostListAll/" + userschool;
-      } else if(linkId==="council"){
-        dynamicValue = "council/" + userschool;
-      }
+  // linkId에 따라 동적 값을 할당하는 로직을 구현합니다.
+  if (linkId === "retailer") {
+    dynamicValue = "retailer/" + userschool;
+    url = apiUrl;
+  } else if (linkId === "partner") {
+    dynamicValue = "partner/" + userschool;
+    url = apiUrl;
+  } else if (linkId === "more_news") {
+    dynamicValue = "showPostListAll/" + userschool;
+    url = baseUrls.post;
+  } else if (linkId === "news") {
+    dynamicValue = "showPostListAll/" + userschool;
+    url = baseUrls.post;
+  } else if (linkId === "council") {
+    dynamicValue = "council/" + userschool;
+    url = baseUrls.council;
+  }
 
-    return `${apiUrl}/` + dynamicValue;
+  return `${url}/` + dynamicValue;
 }
     
 
@@ -262,3 +268,9 @@ async function updateDynamicLinks() {
   
   }
 
+window.addEventListener('load',function(){
+    getUniversityName();
+    retailerLoad();
+    loadloginData();
+    updateDynamicLinks();
+});

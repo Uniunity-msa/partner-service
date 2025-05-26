@@ -4,23 +4,27 @@ import { apiUrl } from '/js/apiUrl.js';
 import { baseUrls } from './apiUrl.js';
 
 let userInfo; // 유저정보
-const userApiUrl = "http://34.47.84.123:3004";
+const userApiUrl = baseUrls.user;
 
 // 작성자 회원 정보 불러오기
 const loadloginData = async () => {
   const res = await fetch(`${userApiUrl}/auth/me`, {
     credentials: "include", // 쿠키 포함
   });
-  
-  console.log("🔍 응답 상태:", res.status); // 200, 401 등
-  console.log("🔍 응답 OK 여부:", res.ok);
-
-  if (!res.ok) {
-    alert("로그인이 필요합니다.");
-    return;
+  if (res.ok == true){
+    console.log("로그인 된 상태");
+    loginStatusBtn.setAttribute("href", `${userApiUrl}/logout`);
+    loginStatusBtn.innerText = "로그아웃"
+    signUpBtn.setAttribute("href", `${userApiUrl}/mypage`);
+    signUpBtn.innerText = "마이페이지"
+  } else {
+    console.log("로그아웃 된 상태");
+    loginStatusBtn.setAttribute("href", `${userApiUrl}/login`);
+    loginStatusBtn.innerText = "로그인"
+    signUpBtn.setAttribute("href", `${userApiUrl}/signup/agreement`);
+    signUpBtn.innerText = "회원가입"
   }
   const data = await res.json();
-  console.log("✅ 받아온 유저 정보:", data); // 실제 유저 정보 로그
   userInfo = data; 
 };
 
@@ -185,9 +189,72 @@ function updateStore(){
 }
 storeUploadBtn.addEventListener('click',updateStore);
 
+// 새로운 url 만들기
+function generateDynamicURL(linkId, userschool) {
+  var dynamicValue;
+  var url;
+
+  // linkId에 따라 동적 값을 할당하는 로직을 구현합니다.
+  if (linkId === "retailer") {
+    dynamicValue = "retailer/" + userschool;
+    url = apiUrl;
+  } else if (linkId === "partner") {
+    dynamicValue = "partner/" + userschool;
+    url = apiUrl;
+  } else if (linkId === "more_news") {
+    dynamicValue = "showPostListAll/" + userschool;
+    url = baseUrls.post;
+  } else if (linkId === "news") {
+    dynamicValue = "showPostListAll/" + userschool;
+    url = baseUrls.post;
+  } else if (linkId === "council") {
+    dynamicValue = "council/" + userschool;
+    url = baseUrls.council;
+  }
+
+  return `${url}/` + dynamicValue;
+}
+
+
+// 새로운 url로 업데이트
+async function updateDynamicLinks() {
+  var userschool = getDynamicValueFromURL();
+  if (!userschool) {
+    console.log("영어 문자열이 URL에서 추출되지 않았습니다.");
+    return;
+  }
+  var link1 = document.getElementById("main_retailer");
+  var link2 = document.getElementById("partner");
+  var link3 = document.getElementById("news");
+
+  universityName.addEventListener("click", function () {
+    var link = generateDynamicURL("council", userschool);
+    window.location.href = link;
+  })
+  link1.addEventListener("click", function () {
+    // 버튼을 클릭하면 이동할 링크 주소를 설정하세요.
+    var link = generateDynamicURL("retailer", userschool);
+    window.location.href = link;
+  });
+
+  link2.addEventListener("click", function () {
+    // 버튼을 클릭하면 이동할 링크 주소를 설정하세요.
+    var link = generateDynamicURL("partner", userschool);
+    window.location.href = link;
+  });
+
+  link3.addEventListener("click", function () {
+    // 버튼을 클릭하면 이동할 링크 주소를 설정하세요.
+    var link = generateDynamicURL("news", userschool);
+    window.location.href = link;
+  });
+
+}
+
+
 window.addEventListener('load', function () {
   getUniversityName();
   loadloginData();
+  loadloginData();
+  updateDynamicLinks();
 });
-
-window.addEventListener('DOMContentLoaded', centerChange); // 이건 '제휴 가게 등록하기' 버튼 클릭 시 함수 실행으로 추후에 변경하기
