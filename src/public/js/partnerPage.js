@@ -18,6 +18,9 @@ const loadloginData = async () => {
   const res = await fetch(`${userApiUrl}/auth/me`, {
     credentials: "include", // 쿠키 포함
   });
+  console.log("status: ", res.status);
+  console.log("ok: ", res.ok);
+  console.log("res: ", res);
   navBar.setAttribute("href", `${apiUrl}`);
   if (res.ok == true){
     console.log("로그인 된 상태");
