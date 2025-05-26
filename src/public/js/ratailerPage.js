@@ -1,11 +1,7 @@
 import loadKakaoMap from '/js/kakaomapLoader.js';
 import apiKeys from '/js/apiKey.js';
 import { apiUrl } from '/js/apiUrl.js';
-
-
-var stores = [];
-var positions = [];
-var Uniname = [];
+import { baseUrls } from './apiUrl.js';
 
 // map을 전역 변수로 선언
 let map;

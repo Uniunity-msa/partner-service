@@ -1,6 +1,7 @@
 "use strict";
 import loadKakaoMap from '/js/kakaomapLoader.js';
 import { apiUrl } from '/js/apiUrl.js';
+import { baseUrls } from './apiUrl.js';
 
 let userInfo; // 유저정보
 const userApiUrl = "http://34.47.84.123:3004";

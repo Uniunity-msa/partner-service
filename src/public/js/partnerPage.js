@@ -1,5 +1,6 @@
 import loadKakaoMap from '/js/kakaomapLoader.js';
 import { apiUrl } from '/js/apiUrl.js';
+import { baseUrls } from './apiUrl.js';
 
 // 지도 전역변수 선언
 let map;
@@ -7,32 +8,34 @@ let map;
 //로그인(로그아웃), 회원가입(마이페이지)버튼
 const loginStatusBtn = document.getElementById("loginStatusBtn");
 const signUpBtn = document.getElementById("signUpBtn");
-
-const user_email = document.getElementById("user_email");
-const user_nickname = document.getElementById("user_nickname");
-const user_type = document.getElementById("user_type");
-const user_name = document.getElementById("user_name");
-const university_name = document.getElementById("university_name");
 const navBar = document.getElementById("navbar");
 
+let userInfo; // 유저정보
+const userApiUrl = baseUrls.user;
 
-//회원로그인 정보 불러오기 -> 추후 ms 통신 형태로 구현
-const setLoginHeader = (res) => {
+// 작성자 회원 정보 불러오기
+const loadloginData = async () => {
+  const res = await fetch(`${userApiUrl}/auth/me`, {
+    credentials: "include", // 쿠키 포함
+  });
   navBar.setAttribute("href", `${apiUrl}`);
-  if (res.loginStatus) {
-    loginStatusBtn.setAttribute("href", `${apiUrl}/logout`);
+  if (!res.ok) {
+    loginStatusBtn.setAttribute("href", `${userApiUrl}/logout`);
     loginStatusBtn.innerText = "로그아웃"
-    signUpBtn.setAttribute("href", `${apiUrl}/mypage`);
+    signUpBtn.setAttribute("href", `${userApiUrl}/mypage`);
     signUpBtn.innerText = "마이페이지"
-  }
-  else {
-    loginStatusBtn.setAttribute("href", `${apiUrl}/login`);
+    return;
+  } else {
+    loginStatusBtn.setAttribute("href", `${userApiUrl}/login`);
     loginStatusBtn.innerText = "로그인"
-    signUpBtn.setAttribute("href", `${apiUrl}/signup/agreement`);
+    signUpBtn.setAttribute("href", `${userApiUrl}/signup/agreement`);
     signUpBtn.innerText = "회원가입"
   }
 
-}
+  const data = await res.json();
+  userInfo = data; 
+};
+
 // 기본 좌표 저징 지도 코드
 // ===========================================================================================
 document.addEventListener("DOMContentLoaded", async () => {
@@ -201,21 +204,27 @@ function getDynamicValueFromURL() {
 // 새로운 url 만들기
 function generateDynamicURL(linkId, userschool) {
   var dynamicValue;
+  var url;
 
   // linkId에 따라 동적 값을 할당하는 로직을 구현합니다.
   if (linkId === "retailer") {
     dynamicValue = "retailer/" + userschool;
+    url = apiUrl;
   } else if (linkId === "partner") {
     dynamicValue = "partner/" + userschool;
+    url = apiUrl;
   } else if (linkId === "more_news") {
     dynamicValue = "showPostListAll/" + userschool;
+    url = baseUrls.post;
   } else if (linkId === "news") {
     dynamicValue = "showPostListAll/" + userschool;
+    url = baseUrls.post;
   } else if (linkId === "council") {
     dynamicValue = "council/" + userschool;
+    url = baseUrls.council;
   }
 
-  return `${apiUrl}/` + dynamicValue;
+  return `${url}/` + dynamicValue;
 }
 
 
@@ -258,5 +267,6 @@ async function updateDynamicLinks() {
 window.addEventListener('load', function () {
   getUniversityName();
   partnerLoad();
+  loadloginData();
   updateDynamicLinks();
 });
