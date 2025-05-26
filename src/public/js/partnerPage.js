@@ -18,12 +18,9 @@ const loadloginData = async () => {
   const res = await fetch(`${userApiUrl}/auth/me`, {
     credentials: "include", // 쿠키 포함
   });
-  console.log("status: ", res.status);
-  console.log("ok: ", res.ok);
-  console.log("res: ", res);
-  console.log("resloginStatus: ", res.loginStatus);
-  navBar.setAttribute("href", `${apiUrl}`);
-  if (res.loginStatus == true){
+  const data = await res.json();
+  userInfo = data; 
+  if (data.loginStatus == true){
     console.log("로그인 된 상태");
     loginStatusBtn.setAttribute("href", `${userApiUrl}/logout`);
     loginStatusBtn.innerText = "로그아웃"
@@ -36,9 +33,6 @@ const loadloginData = async () => {
     signUpBtn.setAttribute("href", `${userApiUrl}/signup/agreement`);
     signUpBtn.innerText = "회원가입"
   }
-  
-  const data = await res.json();
-  userInfo = data; 
   
 };
 
