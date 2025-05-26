@@ -19,6 +19,8 @@ const loadloginData = async () => {
     credentials: "include", // 쿠키 포함
   });
   const data = await res.json();
+  console.log(res);
+  console.log(data);
   userInfo = data; 
   if (data.loginStatus == true){
     console.log("로그인 된 상태");
