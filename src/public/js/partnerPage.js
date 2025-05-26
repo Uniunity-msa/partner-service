@@ -19,19 +19,20 @@ const loadloginData = async () => {
     credentials: "include", // 쿠키 포함
   });
   navBar.setAttribute("href", `${apiUrl}`);
-  if (!res.ok) {
+  if (res.ok == true){
+    console.log("로그인 된 상태");
     loginStatusBtn.setAttribute("href", `${userApiUrl}/logout`);
     loginStatusBtn.innerText = "로그아웃"
     signUpBtn.setAttribute("href", `${userApiUrl}/mypage`);
     signUpBtn.innerText = "마이페이지"
-    return;
   } else {
+    console.log("로그아웃 된 상태");
     loginStatusBtn.setAttribute("href", `${userApiUrl}/login`);
     loginStatusBtn.innerText = "로그인"
     signUpBtn.setAttribute("href", `${userApiUrl}/signup/agreement`);
     signUpBtn.innerText = "회원가입"
   }
-
+  
   const data = await res.json();
   userInfo = data; 
 };
