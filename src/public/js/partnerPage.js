@@ -21,8 +21,9 @@ const loadloginData = async () => {
   console.log("status: ", res.status);
   console.log("ok: ", res.ok);
   console.log("res: ", res);
+  console.log("resloginStatus: ", res.loginStatus);
   navBar.setAttribute("href", `${apiUrl}`);
-  if (res.ok == true){
+  if (res.loginStatus == true){
     console.log("로그인 된 상태");
     loginStatusBtn.setAttribute("href", `${userApiUrl}/logout`);
     loginStatusBtn.innerText = "로그아웃"
@@ -38,6 +39,7 @@ const loadloginData = async () => {
   
   const data = await res.json();
   userInfo = data; 
+  
 };
 
 // 기본 좌표 저징 지도 코드
