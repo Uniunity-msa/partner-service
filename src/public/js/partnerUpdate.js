@@ -6,6 +6,27 @@ import { baseUrls } from './apiUrl.js';
 let userInfo; // 유저정보
 const userApiUrl = baseUrls.user;
 
+// 로그아웃 처리 함수
+const handleLogout = async () => {
+  try {
+    const res = await fetch(`${userApiUrl}/auth/logout`, {
+      method: "POST",
+      credentials: "include"
+    });
+
+    if (res.ok) {
+      // 로그아웃 성공 시 페이지 새로고침
+      window.location.reload(); // 또는 window.location.href = "/";
+    } else {
+      const data = await res.json();
+      alert(data.message || "로그아웃에 실패했습니다.");
+    }
+  } catch (err) {
+    console.error("로그아웃 요청 중 오류 발생:", err);
+    alert("서버 오류로 로그아웃에 실패했습니다.");
+  }
+};
+
 // 작성자 회원 정보 불러오기
 const loadloginData = async () => {
   const res = await fetch(`${userApiUrl}/auth/me`, {
@@ -13,8 +34,12 @@ const loadloginData = async () => {
   });
   if (res.ok == true){
     console.log("로그인 된 상태");
-    loginStatusBtn.setAttribute("href", `${userApiUrl}/logout`);
     loginStatusBtn.innerText = "로그아웃"
+    loginStatusBtn.removeAttribute("href"); // 기본 링크 제거
+    loginStatusBtn.addEventListener("click", (e) => {
+      e.preventDefault(); // 링크 동작 막기
+      handleLogout();     // 로그아웃 요청
+    });
     signUpBtn.setAttribute("href", `${userApiUrl}/mypage`);
     signUpBtn.innerText = "마이페이지"
   } else {
