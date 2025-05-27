@@ -40,7 +40,6 @@ const loadloginData = async () => {
     credentials: "include", // 쿠키 포함
   });
   if (res.ok == true){
-    console.log("로그인 된 상태");
     loginStatusBtn.innerText = "로그아웃"
     loginStatusBtn.removeAttribute("href"); // 기본 링크 제거
     loginStatusBtn.addEventListener("click", (e) => {
@@ -50,7 +49,6 @@ const loadloginData = async () => {
     signUpBtn.setAttribute("href", `${userApiUrl}/mypage`);
     signUpBtn.innerText = "마이페이지"
   } else {
-    console.log("로그아웃 된 상태");
     loginStatusBtn.setAttribute("href", `${userApiUrl}/login`);
     loginStatusBtn.innerText = "로그인"
     signUpBtn.setAttribute("href", `${userApiUrl}/signup/agreement`);

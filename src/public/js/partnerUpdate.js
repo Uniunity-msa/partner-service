@@ -6,6 +6,13 @@ import { baseUrls } from './apiUrl.js';
 let userInfo; // 유저정보
 const userApiUrl = baseUrls.user;
 
+// university_url 값을 받아오는 함수
+function getUniversityUrl() {
+  const url = new URL(window.location.href);
+  const universityUrl = url.pathname.split('/').pop();
+  return universityUrl;
+}
+
 // 로그아웃 처리 함수
 const handleLogout = async () => {
   try {
@@ -44,10 +51,19 @@ const loadloginData = async () => {
     signUpBtn.innerText = "마이페이지"
   } else {
     console.log("로그아웃 된 상태");
-    loginStatusBtn.setAttribute("href", `${userApiUrl}/login`);
-    loginStatusBtn.innerText = "로그인"
-    signUpBtn.setAttribute("href", `${userApiUrl}/signup/agreement`);
-    signUpBtn.innerText = "회원가입"
+
+    // 로그 아웃이 되어있으면 페이지에 접근 불가 - 이전 페이지가 있으면 그리로, 없으면 기본값으로 리디렉션
+    const prevUrl = document.referrer;
+
+    // 현재 페이지가 직접 접근되었거나 외부에서 왔을 때
+    if (prevUrl && new URL(prevUrl).origin === window.location.origin) {
+      window.location.href = prevUrl;
+    } else {
+      // 기본 리디렉션 경로 지정 (여기서 university_url은 동적으로 지정해야 함)
+      const universityUrl = getUniversityUrl();
+      window.location.href = `${baseUrls.post}/post/all/${universityUrl}`;
+    }
+    return; // 이후 코드 실행 방지
   }
   const data = await res.json();
   userInfo = data; 
@@ -67,13 +83,6 @@ const universityName = document.getElementById("universityName");
 // map을 전역 변수로 선언
 let map;
 let marker;
-
-// university_url 값을 받아오는 함수
-function getUniversityUrl() {
-  const url = new URL(window.location.href);
-  const universityUrl = url.pathname.split('/').pop();
-  return universityUrl;
-}
 
 function getUniversityName() {
   const universityUrl = getUniversityUrl();
