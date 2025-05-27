@@ -236,10 +236,10 @@ function generateDynamicURL(linkId, userschool) {
     dynamicValue = "partner/" + userschool;
     url = apiUrl;
   } else if (linkId === "more_news") {
-    dynamicValue = "showPostListAll/" + userschool;
+    dynamicValue = "post/all/" + userschool;
     url = baseUrls.post;
   } else if (linkId === "news") {
-    dynamicValue = "showPostListAll/" + userschool;
+    dynamicValue = "post/all/" + userschool;
     url = baseUrls.post;
   } else if (linkId === "council") {
     dynamicValue = "council/" + userschool;
