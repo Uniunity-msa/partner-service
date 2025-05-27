@@ -40,13 +40,6 @@ const loadloginData = async () => {
     credentials: "include", // 쿠키 포함
   });
   if (res.ok == true){
-    console.log("로그인 된 상태");
-    loginStatusBtn.innerText = "로그아웃"
-    loginStatusBtn.removeAttribute("href"); // 기본 링크 제거
-    loginStatusBtn.addEventListener("click", (e) => {
-      e.preventDefault(); // 링크 동작 막기
-      handleLogout();     // 로그아웃 요청
-    });
     signUpBtn.setAttribute("href", `${userApiUrl}/mypage`);
     signUpBtn.innerText = "마이페이지"
   } else {
