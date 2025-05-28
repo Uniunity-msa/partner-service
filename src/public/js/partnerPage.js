@@ -155,21 +155,22 @@ function partnerLoad() {
       setCenter(map, parseFloat(center[0].latitudeUni), parseFloat(center[0].longitudeUni));
       // 새로운 객체 생성
       for (let i = 1; i < res.length; i++) {
-        const obj = {
-          storeID: res[i].partner_id,
-          storeName: res[i].partner_name,
-          store_location: res[i].address,
-          university_id: res[i].university_id,
-          content: res[i].content,
-          startDate: res[i].start_period,
-          endDate: res[i].end_period
-        };
-        const endDate = new Date(obj.endDate);
+        const startDate = new Date(res[i].start_period);
+        const endDate = new Date(res[i].end_period);
         const now = new Date();
-        // 제휴 종료일자가 오늘 보다 이전 날짜인 제휴 가게는 표시가 되지 않도록 함
+        // 제휴 종료일자가 오늘보다 이후인 경우에만 표시
         if (endDate >= now) {
+            const obj = {
+            storeID: res[i].partner_id,
+            storeName: res[i].partner_name,
+            store_location: res[i].address,
+            university_id: res[i].university_id,
+            content: res[i].content,
+            // 날짜를 YYYY-MM-DD 형식으로 포맷
+            startDate: startDate.toISOString().slice(0, 10),
+            endDate: endDate.toISOString().slice(0, 10),
+          };
           stores.push(obj);
-          // 객체의 좌표 부분은 따로 저장
           positions.push(new kakao.maps.LatLng(parseFloat(res[i].latitude), parseFloat(res[i].longitude)));
         }
       };
