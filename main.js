@@ -23,6 +23,10 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'ejs');
 app.set('view options', { delimiter: '<% %>' });
 
+const indexRouter = require("./src/controllers/index.js");
+console.log("라우터 타입:", typeof indexRouter);
+
+
 // 스타일(CSS) 적용하기
 //static 파일 url로 접근할 수 있도록 
 app.use(express.static(path.join(__dirname, 'src/public')));
@@ -37,11 +41,12 @@ app.use("/", require("./src/controllers/index.js")); //use -> 미들 웨어를 �
 
 app.use(errorController.logErrors);
 app.use(errorController.respondNoResourceFound);
-app.use(errorController.respondInternalEroor);
+app.use(errorController.respondInternalError);
 
 if(!process.env.PORT){
     throw new Error("Please specify the port number for the HTTP server with the environment variable PORT.");
 }
+
 
 const port = process.env.PORT;
 app.listen(port, ()=> {
