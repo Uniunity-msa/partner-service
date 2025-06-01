@@ -30,6 +30,8 @@ console.log("라우터 타입:", typeof indexRouter);
 // 스타일(CSS) 적용하기
 //static 파일 url로 접근할 수 있도록 
 app.use(express.static(path.join(__dirname, 'src/public')));
+app.use("/partner/css", express.static(path.join(__dirname, "src/public/css")));
+app.use("/partner/js", express.static(path.join(__dirname, "src/public/js")));
 app.use(bodyParser.json());
 //URL을 통해 전달되는 데이터에 한글, 공백 등과 같은 문자가 포함될 경우 제대로 인식되지 않는 문제 해결
 
