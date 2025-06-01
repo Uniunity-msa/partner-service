@@ -1,4 +1,4 @@
-import apiKeys from '/js/apiKey.js';
+import apiKeys from '/partner/js/apiKey.js';
 
 const loadKakaoMap = () => {
   return new Promise((resolve, reject) => {
