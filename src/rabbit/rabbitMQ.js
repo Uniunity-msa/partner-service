@@ -14,7 +14,9 @@ const SEND_QUEUES = [
 let channel;
 
 async function connectRabbitMQ() {
-  const rabbitUrl = process.env.RABBIT || 'amqp://localhost'; // env 변수 사용, 없으면 localhost 기본
+  const host = process.env.RABBITMQ_HOST || 'localhost';
+  const port = process.env.RABBITMQ_PORT || '5672';
+  const rabbitUrl = `amqp://${host}:${port}`;
   const connection = await amqp.connect(rabbitUrl);
   channel = await connection.createChannel();
 
