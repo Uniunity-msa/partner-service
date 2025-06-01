@@ -12,7 +12,7 @@ router.post("/partner/getPartner",ctrl.partner.getPartner);
 router.post("/partner/getUniversityLocation",ctrl.partner.getUniversityLocation);
 router.post("/partner/uploadPartner",ctrl.partner.uploadPartnerStore);
 
-router.get("/partnerUpdate/:university_url",ctrl.output.partnerForm);
+router.get("/partner/partnerUpdate/:university_url",ctrl.output.partnerForm);
 router.get("/partner/deleterStore/:partner_id",ctrl.partner.DeletePartnerStore);
 
 router.get("/retailer/:university_url",ctrl.output.retailer);

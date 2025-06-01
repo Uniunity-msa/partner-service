@@ -22,7 +22,7 @@ const userApiUrl = baseUrls.user;
 // 로그아웃 처리 함수
 const handleLogout = async () => {
   try {
-    const res = await fetch(`${userApiUrl}/auth/logout`, {
+    const res = await fetch(`${userApiUrl}/logout`, {
       method: "POST",
       credentials: "include"
     });
@@ -42,7 +42,7 @@ const handleLogout = async () => {
 
 // 작성자 회원 정보 불러오기
 const loadloginData = async () => {
-  const res = await fetch(`${userApiUrl}/auth/me`, {
+  const res = await fetch(`${userApiUrl}/me`, {
     credentials: "include", // 쿠키 포함
   });
   if (res.ok == true){
@@ -238,19 +238,19 @@ function generateDynamicURL(linkId, userschool) {
 
   // linkId에 따라 동적 값을 할당하는 로직을 구현합니다.
   if (linkId === "retailer") {
-    dynamicValue = "retailer/" + userschool;
-    url = apiUrl;
+    dynamicValue = userschool;
+    url = baseUrls.retailer;
   } else if (linkId === "partner") {
-    dynamicValue = "partner/" + userschool;
+    dynamicValue = userschool;
     url = apiUrl;
   } else if (linkId === "more_news") {
-    dynamicValue = "showPostListAll/" + userschool;
+    dynamicValue = "all/" + userschool;
     url = baseUrls.post;
   } else if (linkId === "news") {
-    dynamicValue = "showPostListAll/" + userschool;
+    dynamicValue = "all/" + userschool;
     url = baseUrls.post;
   } else if (linkId === "council") {
-    dynamicValue = "council/" + userschool;
+    dynamicValue = userschool;
     url = baseUrls.council;
   }
 

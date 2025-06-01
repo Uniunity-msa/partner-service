@@ -16,7 +16,7 @@ function getUniversityUrl() {
 
 // 작성자 회원 정보 불러오기
 const loadloginData = async () => {
-  const res = await fetch(`${userApiUrl}/auth/me`, {
+  const res = await fetch(`${userApiUrl}/me`, {
     credentials: "include", // 쿠키 포함
   });
   if (res.ok == true){
@@ -36,7 +36,7 @@ const loadloginData = async () => {
     } else {
       // 기본 리디렉션 경로 지정 (여기서 university_url은 동적으로 지정해야 함)
       const universityUrl = getUniversityUrl();
-      window.location.href = `${baseUrls.post}/post/all/${universityUrl}`;
+      window.location.href = `${baseUrls.post}/all/${universityUrl}`;
     }
     return; // 이후 코드 실행 방지
   }
@@ -205,19 +205,19 @@ function generateDynamicURL(linkId, userschool) {
 
   // linkId에 따라 동적 값을 할당하는 로직을 구현합니다.
   if (linkId === "retailer") {
-    dynamicValue = "retailer/" + userschool;
-    url = apiUrl;
+    dynamicValue = userschool;
+    url = baseUrls.retailer;
   } else if (linkId === "partner") {
-    dynamicValue = "partner/" + userschool;
+    dynamicValue = userschool;
     url = apiUrl;
   } else if (linkId === "more_news") {
-    dynamicValue = "post/all/" + userschool;
+    dynamicValue = "all/" + userschool;
     url = baseUrls.post;
   } else if (linkId === "news") {
-    dynamicValue = "post/all/" + userschool;
+    dynamicValue = "all/" + userschool;
     url = baseUrls.post;
   } else if (linkId === "council") {
-    dynamicValue = "council/" + userschool;
+    dynamicValue = userschool;
     url = baseUrls.council;
   }
 

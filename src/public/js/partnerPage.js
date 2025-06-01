@@ -237,10 +237,10 @@ function generateDynamicURL(linkId, userschool) {
     dynamicValue = userschool;
     url = apiUrl;
   } else if (linkId === "more_news") {
-    dynamicValue = "/all/" + userschool;
+    dynamicValue = "all/" + userschool;
     url = baseUrls.post;
   } else if (linkId === "news") {
-    dynamicValue = "/all/" + userschool;
+    dynamicValue = "all/" + userschool;
     url = baseUrls.post;
   } else if (linkId === "council") {
     dynamicValue = userschool;
