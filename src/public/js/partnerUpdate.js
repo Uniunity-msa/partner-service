@@ -1,7 +1,6 @@
 "use strict";
-import loadKakaoMap from '/js/kakaomapLoader.js';
-import { apiUrl } from '/js/apiUrl.js';
-import { baseUrls } from './apiUrl.js';
+import loadKakaoMap from '/partner/js/kakaomapLoader.js';
+import { apiUrl, baseUrls } from '/partner/js/apiUrl.js';
 
 let userInfo; // 유저정보
 const userApiUrl = baseUrls.user;

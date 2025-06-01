@@ -1,6 +1,6 @@
-import loadKakaoMap from '/js/kakaomapLoader.js';
-import { apiUrl } from '/js/apiUrl.js';
-import { baseUrls } from './apiUrl.js';
+"use strict";
+import loadKakaoMap from '/partner/js/kakaomapLoader.js';
+import { apiUrl, baseUrls } from '/partner/js/apiUrl.js';
 
 // 지도 전역변수 선언
 let map;
