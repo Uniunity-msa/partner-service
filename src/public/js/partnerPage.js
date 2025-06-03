@@ -11,7 +11,7 @@ const signUpBtn = document.getElementById("signUpBtn");
 const navBar = document.getElementById("navbar");
 
 let userInfo; // 유저정보
-const userApiUrl = baseUrls.user;
+const userApiUrl = baseUrls.auth;
 
 // 로그아웃 처리 함수
 const handleLogout = async () => {
@@ -46,7 +46,7 @@ const loadloginData = async () => {
       e.preventDefault(); // 링크 동작 막기
       handleLogout();     // 로그아웃 요청
     });
-    signUpBtn.setAttribute("href", `${baseUrls.post}/mypage`);
+    signUpBtn.setAttribute("href", `${baseUrls.postReaction}`);
     signUpBtn.innerText = "마이페이지"
   } else {
     loginStatusBtn.setAttribute("href", `${userApiUrl}/login`);

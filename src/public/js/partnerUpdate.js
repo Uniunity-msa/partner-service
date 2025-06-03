@@ -3,7 +3,6 @@ import loadKakaoMap from '/partner/js/kakaomapLoader.js';
 import { apiUrl, baseUrls } from '/partner/js/apiUrl.js';
 
 let userInfo; // 유저정보
-const userApiUrl = baseUrls.user;
 
 // university_url 값을 받아오는 함수
 function getUniversityUrl() {
@@ -15,13 +14,13 @@ function getUniversityUrl() {
 
 // 작성자 회원 정보 불러오기
 const loadloginData = async () => {
-  const res = await fetch(`${userApiUrl}/me`, {
+  const res = await fetch(`${baseUrls.auth}/me`, {
     credentials: "include", // 쿠키 포함
   });
   if (res.ok == true){
     // 해당 페이지에서 로직이 안꼬이도록 해당 페이지에서는 로그아웃 자체가 불가능 하도록 버튼 자체를 블라인드 처리.
     loginStatusBtn.style.display = "none";
-    signUpBtn.setAttribute("href", `${userApiUrl}/mypage`);
+    signUpBtn.setAttribute("href", `${baseUrls.postReaction}`);
     signUpBtn.innerText = "마이페이지"
   } else {
     console.log("로그아웃 된 상태");
