@@ -16,7 +16,7 @@ const userApiUrl = baseUrls.auth;
 // 로그아웃 처리 함수
 const handleLogout = async () => {
   try {
-    const res = await fetch(`${userApiUrl}/logout`, {
+    const res = await fetch(`${baseUrls.auth}/logout`, {
       method: "POST",
       credentials: "include"
     });
@@ -36,7 +36,7 @@ const handleLogout = async () => {
 
 // 작성자 회원 정보 불러오기
 const loadloginData = async () => {
-  const res = await fetch(`${userApiUrl}/me`, {
+  const res = await fetch(`${baseUrls.auth}/me`, {
     credentials: "include", // 쿠키 포함
   });
   if (res.ok == true){
@@ -49,9 +49,9 @@ const loadloginData = async () => {
     signUpBtn.setAttribute("href", `${baseUrls.postReaction}`);
     signUpBtn.innerText = "마이페이지"
   } else {
-    loginStatusBtn.setAttribute("href", `${userApiUrl}/login`);
+    loginStatusBtn.setAttribute("href", `${baseUrls.auth}/login`);
     loginStatusBtn.innerText = "로그인"
-    signUpBtn.setAttribute("href", `${userApiUrl}/signup/agreement`);
+    signUpBtn.setAttribute("href", `${baseUrls.user}/signup/agreement`);
     signUpBtn.innerText = "회원가입"
   }
   const data = await res.json();
@@ -110,6 +110,7 @@ function getUniversityName() {
   const req = {
     university_url: universityUrl
   };
+  console.log("getUniversityName() university_url:", req.university_url);
   fetch(`${apiUrl}/getUniversityName`, {
     method: "POST",
     headers: {
@@ -121,6 +122,7 @@ function getUniversityName() {
       if (!res.ok) {
         throw new Error('Network response was not ok');
       }
+      console.log("getUniversityName() res:", res);
       return res.json();
     })
     .then(res => {
@@ -136,6 +138,7 @@ function partnerLoad() {
   const req = {
     university_url: universityUrl,
   };
+  console.log("partnerLoad() university_url:", req.university_url);
   fetch(`${apiUrl}/getPartner`, {
     method: "POST",
     headers: {
@@ -147,6 +150,7 @@ function partnerLoad() {
       if (!res.ok) {
         throw new Error('Network response was not ok');
       }
+      console.log("partnerLoad() res:",res);
       return res.json();
     })
     .then(res => {
