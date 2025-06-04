@@ -5,11 +5,6 @@ const RECV_QUEUES = [
   'RecvPartnerUniversityID',
   'RecvPartnerUniversityLocation'
 ];
-const SEND_QUEUES = [
-  'SendUniversityName',
-  'SendUniversityID',
-  'SendUniversityLocation'
-];
 
 let channel;
 
@@ -59,6 +54,7 @@ async function receiveUniversityData(queueName) {
     throw new Error(`알 수 없는 수신 큐: ${queueName}`);
   }
 
+  console.log(queueName);
   // 최대 10번까지, 300ms 간격으로 메시지 수신 시도
   for (let i = 0; i < 10; i++) {
     const msg = await channel.get(queueName, { noAck: false });

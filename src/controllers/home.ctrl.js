@@ -41,8 +41,6 @@ const partner = {
             // 통신으로 university_id와 university_location 받아오기
             await sendUniversityURL(university_url, 'SendUniversityID');
             const university_id = await receiveUniversityData('RecvPartnerUniversityID');
-            console.log(university_url);
-            console.log(university_id);
 
             await sendUniversityURL(university_url, 'SendUniversityLocation');
             const university_location = await receiveUniversityData('RecvPartnerUniversityLocation');

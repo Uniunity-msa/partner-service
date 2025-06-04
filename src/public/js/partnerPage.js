@@ -46,7 +46,7 @@ const loadloginData = async () => {
       e.preventDefault(); // 링크 동작 막기
       handleLogout();     // 로그아웃 요청
     });
-    signUpBtn.setAttribute("href", `${baseUrls.postReaction}`);
+    signUpBtn.setAttribute("href", `${baseUrls.postReaction}/mypage`);
     signUpBtn.innerText = "마이페이지"
   } else {
     loginStatusBtn.setAttribute("href", `${baseUrls.auth}/login`);
@@ -94,7 +94,6 @@ const universityName = document.getElementById("universityName");
 let center;
 let stores = [];
 let positions = [];
-var Uniname = [];
 
 
 function setCenter(map, latitude, longitude) {
@@ -110,7 +109,6 @@ function getUniversityName() {
   const req = {
     university_url: universityUrl
   };
-  console.log("getUniversityName() university_url:", req.university_url);
   fetch(`${apiUrl}/getUniversityName`, {
     method: "POST",
     headers: {
@@ -122,7 +120,6 @@ function getUniversityName() {
       if (!res.ok) {
         throw new Error('Network response was not ok');
       }
-      console.log("getUniversityName() res:", res);
       return res.json();
     })
     .then(res => {
@@ -138,7 +135,6 @@ function partnerLoad() {
   const req = {
     university_url: universityUrl,
   };
-  console.log("partnerLoad() university_url:", req.university_url);
   fetch(`${apiUrl}/getPartner`, {
     method: "POST",
     headers: {

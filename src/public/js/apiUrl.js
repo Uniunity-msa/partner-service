@@ -7,5 +7,5 @@ export const baseUrls = {
   post: "http://uniunity.store/post",
   user: "http://uniunity.store/user",
   auth: "http://uniunity.store/auth",
-  postReaction: "http://uniunity.store/mypage",
+  postReaction: "http://uniunity.store/reaction",
 };

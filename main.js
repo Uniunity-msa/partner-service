@@ -14,6 +14,9 @@ require('dotenv').config();
 
 const bcrypt = require('bcrypt');
 
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'OK' });
+});
 
 // 앱 셋팅
 // 서버가 읽을 수 있도록 HTML 의 위치를 정의해줍니다.

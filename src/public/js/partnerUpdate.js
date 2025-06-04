@@ -20,7 +20,7 @@ const loadloginData = async () => {
   if (res.ok == true){
     // 해당 페이지에서 로직이 안꼬이도록 해당 페이지에서는 로그아웃 자체가 불가능 하도록 버튼 자체를 블라인드 처리.
     loginStatusBtn.style.display = "none";
-    signUpBtn.setAttribute("href", `${baseUrls.postReaction}`);
+    signUpBtn.setAttribute("href", `${baseUrls.postReaction}/mypage`);
     signUpBtn.innerText = "마이페이지"
   } else {
     console.log("로그아웃 된 상태");

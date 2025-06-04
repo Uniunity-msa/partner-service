@@ -52,7 +52,7 @@ const loadloginData = async () => {
       e.preventDefault(); // 링크 동작 막기
       handleLogout();     // 로그아웃 요청
     });
-    signUpBtn.setAttribute("href", `${baseUrls.postReaction}`);
+    signUpBtn.setAttribute("href", `${baseUrls.postReaction}/mypage`);
     signUpBtn.innerText = "마이페이지"
   } else {
     console.log("로그아웃 된 상태");
