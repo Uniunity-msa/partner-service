@@ -22,7 +22,6 @@ jobs:
 
     - name: Inject API Key File
       run: |
-        mkdir -p ./src/public/js
         echo "${{ secrets.API_KEY }}" > ./src/public/js/apiKey.js
         echo "apiKey.js 파일 생성 완료"
 
