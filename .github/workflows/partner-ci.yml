@@ -1,4 +1,4 @@
-name: 'Start CI to Docker Hub'
+name: 'Partner CI to Docker Hub'
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  DOCKERHUB_REPO: 'uniunity/start-service'
+  DOCKERHUB_REPO: 'uniunity/partner-service'
 
 jobs:
   docker:
