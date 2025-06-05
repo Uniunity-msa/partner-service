@@ -167,7 +167,6 @@ function updateStore(){
         end_period: end_period.value,
         university_url: universityUrl
     };
-    console.log(req);
     fetch(`${apiUrl}/uploadPartner`, {
         method: "POST",
         headers: {
@@ -180,7 +179,7 @@ function updateStore(){
         // 성공적으로 처리되었는지 확인 (예: success: true 여부)
         if (res && res.success !== false) {
             // 페이지 이동
-            window.location.href = `${apiUrl}/partner/${universityUrl}`;
+            window.location.href = `${apiUrl}/${universityUrl}`;
         } else {
             console.error('업로드 실패:', res.msg || '알 수 없는 오류');
             alert("업로드에 실패했습니다.");
