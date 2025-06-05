@@ -5,6 +5,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const path = require('path');
 const rabbitMQ = require("./src/rabbit/rabbitMQ");
+const mysql = require('mysql2/promise');
+const amqp = require('amqplib');
 
 const app = express();
 
