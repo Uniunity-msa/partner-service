@@ -149,6 +149,7 @@ function partnerLoad() {
       return res.json();
     })
     .then(res => {
+      console.log(res);
       center = []; // center 배열 초기화
       center.push(res[0]);
       setCenter(map, parseFloat(center[0].latitudeUni), parseFloat(center[0].longitudeUni));
