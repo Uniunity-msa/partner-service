@@ -146,7 +146,6 @@ function partnerLoad() {
       if (!res.ok) {
         throw new Error('Network response was not ok');
       }
-      console.log("partnerLoad() res:",res);
       return res.json();
     })
     .then(res => {
