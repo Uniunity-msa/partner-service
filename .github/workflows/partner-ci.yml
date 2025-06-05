@@ -21,9 +21,19 @@ jobs:
       id: set-tag
       run: echo "IMAGE_TAG=$(TZ=Asia/Seoul date +'%Y%m%d%H%M')" >> $GITHUB_ENV
 
-    - name: Inject API Key File
+    - name: Generate apiKey.js from 개별 시크릿
       run: |
-        echo "${{ secrets.API_KEY }}" > ./src/public/js/apiKey.js
+        mkdir -p ./src/public/js
+        cat <<EOF > ./src/public/js/apiKey.js
+        const apiKeys = {
+          KAKAO_API_KEY: "${{ secrets.KAKAO_API_KEY }}",
+          SERVICE_KEY: "${{ secrets.SERVICE_KEY }}",
+          ENDPOINT: "https://apis.data.go.kr/B553077/api/open/sdsc2/"
+        };
+
+        export default apiKeys;
+        EOF
+
         echo "apiKey.js 파일 생성 완료"
 
     - name: Docker Hub Login
