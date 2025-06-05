@@ -23,18 +23,10 @@ jobs:
 
     - name: Generate apiKey.js from 개별 시크릿
       run: |
-        mkdir -p ./src/public/js
-        cat <<EOF > ./src/public/js/apiKey.js
-        const apiKeys = {
-          KAKAO_API_KEY: "79c5295d7c90bb2123bbdb4eabb24301",
-          SERVICE_KEY: "p0%2BHQGnCYhn4J%2BB0BJpY5cOD0thCQ29az7PS9MQ4gLwPqbZrSns3eFy4VZ%2BUSc95PAkZUjK%2FGiir%2FcMk1FAq4A%3D%3D",
-          ENDPOINT: "https://apis.data.go.kr/B553077/api/open/sdsc2/"
-        };
-
-        export default apiKeys;
-        EOF
-
+        touch ./src/public/js/apiKey.js
+        echo "${{ secrets.API_KEY}}" > ./src/public/js/apiKey.js
         echo "apiKey.js 파일 생성 완료"
+      shell: bash
 
     - name: Docker Hub Login
       uses: docker/login-action@v3
