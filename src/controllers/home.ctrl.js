@@ -114,9 +114,10 @@ const university = {
     getUniversityName: async (req, res) => {
     try {
             const university_url = req.body.university_url;
+            const correlationId = generateCorrelationId();
 
-            await sendUniversityURL(university_url, 'SendUniversityName');
-            const data = await receiveUniversityData('RecvPartnerUniversityName')
+            await sendUniversityURL(university_url, 'SendUniversityName', correlationId);
+            const data = await receiveUniversityData('RecvPartnerUniversityName', correlationId)
 
             return res.json(data.university_name);
     }catch (err) {
