@@ -19,13 +19,19 @@ async function connectRabbitMQ() {
   for (const queue of RECV_QUEUES) {
     await channel.assertQueue(queue, { durable: false });
   }
-
   return channel;
+}
+
+function generateCorrelationId() {
+  return `corr-${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
 }
 
 // university_url을 전송
 async function sendUniversityURL(university_url, sendQueueName) {
   if (!channel) await connectRabbitMQ();
+
+  const correlationId = generateCorrelationId();
+
   let recvQueueName;
   if(sendQueueName == 'SendUniversityName'){
     recvQueueName = 'RecvPartnerUniversityName';
@@ -42,6 +48,7 @@ async function sendUniversityURL(university_url, sendQueueName) {
     Buffer.from(JSON.stringify({ university_url })),
     {
       replyTo: recvQueueName,
+      correlationId: correlationId,
     }
   );
 }
@@ -60,15 +67,22 @@ async function receiveUniversityData(queueName) {
     const msg = await channel.get(queueName, { noAck: false });
     if (msg) {
       const data = JSON.parse(msg.content.toString());
-      channel.ack(msg);
-      return data;
+
+      // 요청 ID(correlationId)를 확인하여 응답을 매칭
+      if (data.correlationId === correlationId) {
+        channel.ack(msg);  // 처리 완료된 메시지에 대해 ack
+        return data;
+      }
+
+      // 응답을 찾지 못한 경우 해당 메시지를 다시 큐에 넣기
+      channel.nack(msg, false, true);
     }
     // 메시지가 없으면 300ms 대기 후 재시도
     await new Promise(resolve => setTimeout(resolve, 300));
   }
-
   throw new Error(`${queueName} 큐에서 메시지를 받지 못했습니다.`);
 }
+
 module.exports = {
   sendUniversityURL,
   receiveUniversityData
