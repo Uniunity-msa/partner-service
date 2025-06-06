@@ -82,5 +82,6 @@ async function receiveUniversityData(queueName, correlationId) {
 
 module.exports = {
   sendUniversityURL,
-  receiveUniversityData
+  receiveUniversityData,
+  generateCorrelationId
 };

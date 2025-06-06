@@ -2,7 +2,7 @@
 
 const Partner = require("../models/Partner");
 const bcrypt = require('bcrypt');
-const { sendUniversityURL, receiveUniversityData } = require('../rabbit/rabbitMQ');
+const { sendUniversityURL, receiveUniversityData, generateCorrelationId } = require('../rabbit/rabbitMQ');
 
 const output = {
     partner: (req, res) => {
