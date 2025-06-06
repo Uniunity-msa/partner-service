@@ -27,10 +27,8 @@ function generateCorrelationId() {
 }
 
 // university_url을 전송
-async function sendUniversityURL(university_url, sendQueueName) {
+async function sendUniversityURL(university_url, sendQueueName, correlationId) {
   if (!channel) await connectRabbitMQ();
-
-  const correlationId = generateCorrelationId();
 
   let recvQueueName;
   if(sendQueueName == 'SendUniversityName'){
@@ -54,14 +52,13 @@ async function sendUniversityURL(university_url, sendQueueName) {
 }
 
 // university data 수신
-async function receiveUniversityData(queueName) {
+async function receiveUniversityData(queueName, correlationId) {
   if (!channel) await connectRabbitMQ();
 
   if (!RECV_QUEUES.includes(queueName)) {
     throw new Error(`알 수 없는 수신 큐: ${queueName}`);
   }
 
-  console.log(queueName);
   // 최대 10번까지, 300ms 간격으로 메시지 수신 시도
   for (let i = 0; i < 10; i++) {
     const msg = await channel.get(queueName, { noAck: false });

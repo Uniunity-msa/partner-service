@@ -22,10 +22,11 @@ const partner = {
     getUniversityLocation: async (req, res) => {
         try {
             const university_url = req.body.university_url;
+            const correlationId = generateCorrelationId();
 
             // RabbitMQ로 university_location 요청 및 수신
-            await sendUniversityURL(university_url, 'SendUniversityLocation');
-            const university_location = await receiveUniversityData('RecvPartnerUniversityLocation');
+            await sendUniversityURL(university_url, 'SendUniversityLocation', correlationId);
+            const university_location = await receiveUniversityData('RecvPartnerUniversityLocation', correlationId);
             return res.json(university_location);
 
         } catch (err) {
@@ -37,13 +38,14 @@ const partner = {
     getPartner: async (req, res) => {
         try {
             const university_url = req.body.university_url;
+            const correlationId = generateCorrelationId();
 
             // 통신으로 university_id와 university_location 받아오기
-            await sendUniversityURL(university_url, 'SendUniversityID');
-            const university_id = await receiveUniversityData('RecvPartnerUniversityID');
+            await sendUniversityURL(university_url, 'SendUniversityID', correlationId);
+            const university_id = await receiveUniversityData('RecvPartnerUniversityID', correlationId);
 
-            await sendUniversityURL(university_url, 'SendUniversityLocation');
-            const university_location = await receiveUniversityData('RecvPartnerUniversityLocation');
+            await sendUniversityURL(university_url, 'SendUniversityLocation', correlationId);
+            const university_location = await receiveUniversityData('RecvPartnerUniversityLocation', correlationId);
             
             const partner = new Partner();
             const university_uni = await partner.getPartnerStores(university_id); // ID 객체에서 값 꺼냄
@@ -73,9 +75,11 @@ const partner = {
                 content = req.body.content,
                 start_period = req.body.start_period,
                 end_period = req.body.end_period;
+            const correlationId = generateCorrelationId();
+
             // university_id를 RabbitMQ를 통해 받음
-            await sendUniversityURL(university_url, 'SendUniversityID');
-            const university_id = await receiveUniversityData('RecvPartnerUniversityID');
+            await sendUniversityURL(university_url, 'SendUniversityID', correlationId);
+            const university_id = await receiveUniversityData('RecvPartnerUniversityID', correlationId);
 
             const partner = new Partner();
             const response = await partner.uploadPartnerStore(
