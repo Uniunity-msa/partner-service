@@ -28,7 +28,7 @@ jobs:
         const apiKeys = {
           KAKAO_API_KEY: "${{ secrets.KAKAO_API_KEY }}",
           SERVICE_KEY: "${{ secrets.SERVICE_KEY }}",
-          ENDPOINT: "${{ secrets.ENDPOINT }}"
+          ENDPOINT: "https://apis.data.go.kr/B553077/api/open/sdsc2/"
         };
     
         export default apiKeys;
