@@ -70,6 +70,7 @@ async function receiveUniversityData(queueName, correlationId) {
         channel.ack(msg);  // 처리 완료된 메시지에 대해 ack
         return data;
       }
+      console.log("receiveUniversityData correlationId: ", correlationId);
       msg.properties.replyTo = queueName;
       msg.properties.correlationId = correlationId;
       console.log("msg: ", msg);
