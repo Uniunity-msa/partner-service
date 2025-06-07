@@ -23,12 +23,10 @@ const partner = {
         try {
             const university_url = req.body.university_url;
             const correlationId = generateCorrelationId();
-            console.log(correlationId);
 
             // RabbitMQ로 university_location 요청 및 수신
             await sendUniversityURL(university_url, 'SendUniversityLocation', correlationId);
             const university_location = await receiveUniversityData('RecvPartnerUniversityLocation', correlationId);
-            console.log(university_location);
             return res.json(university_location);
 
         } catch (err) {
@@ -41,7 +39,6 @@ const partner = {
         try {
             const university_url = req.body.university_url;
             const correlationId = generateCorrelationId();
-            console.log(correlationId);
 
             // 통신으로 university_id와 university_location 받아오기
             await sendUniversityURL(university_url, 'SendUniversityID', correlationId);
@@ -50,10 +47,9 @@ const partner = {
 
             await sendUniversityURL(university_url, 'SendUniversityLocation', correlationId);
             const university_location = await receiveUniversityData('RecvPartnerUniversityLocation', correlationId);
-            console.log(university_location);
             
             const partner = new Partner();
-            const university_uni = await partner.getPartnerStores(university_id); // ID 객체에서 값 꺼냄
+            const university_uni = await partner.getPartnerStores(university_id.university_id); // ID 객체에서 값 꺼냄
 
             // 응답 객체 구성
             const obj = [];
@@ -84,7 +80,8 @@ const partner = {
 
             // university_id를 RabbitMQ를 통해 받음
             await sendUniversityURL(university_url, 'SendUniversityID', correlationId);
-            const university_id = await receiveUniversityData('RecvPartnerUniversityID', correlationId);
+            const university_data = await receiveUniversityData('RecvPartnerUniversityID', correlationId);
+            const university_id = university_data.university_id;
 
             const partner = new Partner();
             const response = await partner.uploadPartnerStore(

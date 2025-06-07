@@ -40,8 +40,6 @@ async function sendUniversityURL(university_url, sendQueueName, correlationId) {
   } else{
     console.log("명시되지 않은 sendQueueName 입니다.");
   }
-  
-   console.log(`Sending to ${sendQueueName} with correlationId: ${correlationId}`);
 
   channel.sendToQueue(
     sendQueueName,  // 올바르게 인자로 받은 큐 이름 사용
