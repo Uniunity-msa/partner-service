@@ -72,6 +72,7 @@ async function receiveUniversityData(queueName, correlationId) {
       }
       msg.properties.replyTo = queueName;
       msg.properties.correlationId = correlationId;
+      console.log("msg: ", msg);
       // 응답을 찾지 못한 경우 해당 메시지를 다시 큐에 넣기
       channel.nack(msg, false, true);
     }
