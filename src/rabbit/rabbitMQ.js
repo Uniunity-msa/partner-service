@@ -70,7 +70,8 @@ async function receiveUniversityData(queueName, correlationId) {
         channel.ack(msg);  // 처리 완료된 메시지에 대해 ack
         return data;
       }
-
+      msg.properties.replyTo = queueName;
+      msg.properties.correlationId = correlationId;
       // 응답을 찾지 못한 경우 해당 메시지를 다시 큐에 넣기
       channel.nack(msg, false, true);
     }
