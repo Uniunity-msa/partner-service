@@ -122,9 +122,6 @@ function centerChange(){
         body: JSON.stringify(req),
     }).then((res) => res.json())
     .then(res => {
-      console.log("centerChange()res: ", res);
-      console.log(res.latitude);
-      console.log(res.longitude);
       setCenter(map, parseFloat(res.latitude), parseFloat(res.longitude));
     })
 }
