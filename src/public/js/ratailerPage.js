@@ -122,9 +122,13 @@ function centerChange(){
         body: JSON.stringify(req),
     }).then((res) => res.json())
     .then(res => {
-        setCenter(map, parseFloat(res.latitude), parseFloat(res.longitude));
+      console.log("centerChange()res: ", res);
+      console.log(res.latitude);
+      console.log(res.longitude);
+      setCenter(map, parseFloat(res.latitude), parseFloat(res.longitude));
     })
 }
+
 
 const serviceKey = apiKeys.SERVICE_KEY;
 const endPoint = apiKeys.ENDPOINT;
@@ -152,7 +156,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const maxy = neLatlng.Ma.toString();
   
         const url = `${endPoint}storeListInRectangle?serviceKey=${serviceKey}&pageNo=1&numOfRows=10&minx=${minx}&miny=${miny}&maxx=${maxx}&maxy=${maxy}&type=json`;
-        console.log("url:", url);
         const stores = [];
         const positions = [];
   
@@ -198,23 +201,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 
-function retailerLoad(){
-    const universityUrl = getUniversityUrl();
-    const req = {
-        university_url:universityUrl
-    };
-    fetch(`${apiUrl}/getUniversityLocation`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(req),
-    }).then((res) => res.json())
-    .then(res => {
-        setCenter(map,parseFloat(res.latitude),parseFloat(res.longitude));
-    })
-}
-
+window.addEventListener('load',function(){
+    getUniversityName();
+    loadloginData();
+    updateDynamicLinks();
+});
 
 // 현재 URL의 경로 일부 가져오기 (retailer 뒤의 학교 이름 추출함)
 function getDynamicValueFromURL() {
@@ -289,10 +280,3 @@ async function updateDynamicLinks() {
     });
   
   }
-
-window.addEventListener('load',function(){
-    getUniversityName();
-    // retailerLoad();
-    loadloginData();
-    updateDynamicLinks();
-});

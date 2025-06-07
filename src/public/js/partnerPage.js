@@ -212,6 +212,13 @@ function partnerLoad() {
     });
 }
 
+window.addEventListener('load', function () {
+  getUniversityName();
+  partnerLoad();
+  loadloginData();
+  updateDynamicLinks();
+});
+
 // 현재 URL의 경로 일부 가져오기 (partner 뒤의 학교 이름 추출함)
 function getDynamicValueFromURL() {
   var path = window.location.pathname;
@@ -285,11 +292,3 @@ async function updateDynamicLinks() {
   });
 
 }
-
-
-window.addEventListener('load', function () {
-  getUniversityName();
-  partnerLoad();
-  loadloginData();
-  updateDynamicLinks();
-});
