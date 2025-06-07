@@ -152,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const maxy = neLatlng.Ma.toString();
   
         const url = `${endPoint}storeListInRectangle?serviceKey=${serviceKey}&pageNo=1&numOfRows=10&minx=${minx}&miny=${miny}&maxx=${maxx}&maxy=${maxy}&type=json`;
-  
+        console.log("url:", url);
         const stores = [];
         const positions = [];
   
@@ -292,7 +292,7 @@ async function updateDynamicLinks() {
 
 window.addEventListener('load',function(){
     getUniversityName();
-    retailerLoad();
+    // retailerLoad();
     loadloginData();
     updateDynamicLinks();
 });
