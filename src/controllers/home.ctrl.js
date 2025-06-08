@@ -21,12 +21,14 @@ const output = {
 const partner = {
     getUniversityLocation: async (req, res) => {
         try {
+            console.log("getUniversityLocation 실행: 지도 중심값 설정");
             const university_url = req.body.university_url;
             const correlationId = generateCorrelationId();
 
             // RabbitMQ로 university_location 요청 및 수신
             await sendUniversityURL(university_url, 'SendUniversityLocation', correlationId);
             const university_location = await receiveUniversityData('RecvPartnerUniversityLocation', correlationId);
+            console.log("getUniversityLocation 실행: getUniversityLocation 받아오기 => ", university_location.latitude, university_location.longitude);
             return res.json(university_location);
 
         } catch (err) {
@@ -43,13 +45,15 @@ const partner = {
             // 통신으로 university_id와 university_location 받아오기
             await sendUniversityURL(university_url, 'SendUniversityID', correlationId);
             const university_id = await receiveUniversityData('RecvPartnerUniversityID', correlationId);
+            console.log("getPartner 실행: university_id 받아오기 => ", university_id.university_id);
 
             await sendUniversityURL(university_url, 'SendUniversityLocation', correlationId);
             const university_location = await receiveUniversityData('RecvPartnerUniversityLocation', correlationId);
+            console.log("getPartner실행: 지도 중심값 설정 => ", university_location.latitude, university_location.longitude);
             
             const partner = new Partner();
             const university_uni = await partner.getPartnerStores(university_id.university_id); // ID 객체에서 값 꺼냄
-
+            console.log("getPartner 실행: 제휴정보 받아오기");
             // 응답 객체 구성
             const obj = [];
             obj.push({
@@ -81,6 +85,7 @@ const partner = {
             await sendUniversityURL(university_url, 'SendUniversityID', correlationId);
             const university_data = await receiveUniversityData('RecvPartnerUniversityID', correlationId);
             const university_id = university_data.university_id;
+            console.log("uploadPartnerStore 실행: university_id 받아오기 => ", university_id);
 
             const partner = new Partner();
             const response = await partner.uploadPartnerStore(
@@ -93,6 +98,7 @@ const partner = {
                 latitude,
                 longitude
             );
+            console.log("uploadPartnerStore 실행: 제휴정보 등록");
             return res.json(response);
         } catch (err) {
             console.error('uploadPartnerStore error:', err);
@@ -114,6 +120,7 @@ const university = {
 
             await sendUniversityURL(university_url, 'SendUniversityName', correlationId);
             const data = await receiveUniversityData('RecvPartnerUniversityName', correlationId)
+            console.log("getUniversityName 실행: 대학이름 받아오기 => ", data.university_name);
 
             return res.json(data.university_name);
     }catch (err) {
